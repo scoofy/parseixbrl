@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--XBRL Document Created with Wdesk from Workiva-->
+<!-- -->
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.ge.com/20170630" xmlns:ge="http://www.ge.com/20170630" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://fasb.org/us-gaap/2016-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd" />
+  <xsd:import namespace="http://fasb.org/us-roles/2016-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2016/elts/us-roles-2016-01-31.xsd" />
+  <xsd:import namespace="http://fasb.org/us-types/2016-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2016/elts/us-types-2016-01-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/arcrole/fact-explanatoryFact" schemaLocation="http://www.xbrl.org/lrr/arcrole/factExplanatory-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/role/negated" schemaLocation="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/role/net" schemaLocation="http://www.xbrl.org/lrr/role/net-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/dtr/type/non-numeric" schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/dtr/type/numeric" schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd" />
+  <xsd:import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/country/2016-01-31" schemaLocation="http://xbrl.sec.gov/country/2016/country-2016-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/currency/2016-01-31" schemaLocation="http://xbrl.sec.gov/currency/2016/currency-2016-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/dei/2014-01-31" schemaLocation="http://xbrl.sec.gov/dei/2014/dei-2014-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/exch/2016-01-31" schemaLocation="http://xbrl.sec.gov/exch/2016/exch-2016-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/invest/2013-01-31" schemaLocation="http://xbrl.sec.gov/invest/2013/invest-2013-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/naics/2011-01-31" schemaLocation="http://xbrl.sec.gov/naics/2011/naics-2011-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/sic/2011-01-31" schemaLocation="http://xbrl.sec.gov/sic/2011/sic-2011-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/stpr/2011-01-31" schemaLocation="http://xbrl.sec.gov/stpr/2011/stpr-2011-01-31.xsd" />
+  <xsd:annotation>
+    <xsd:appinfo>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ge-20170630_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ge-20170630_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ge-20170630_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ge-20170630_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:type="simple" />
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssets" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssets">
+        <link:definition>2108100 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsAcquisitionsNarrativeDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsAcquisitionsNarrativeDetails">
+        <link:definition>2408402 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - ACQUISITIONS (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsBakerHughesNarrativeDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsBakerHughesNarrativeDetails">
+        <link:definition>2408403 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - BAKER HUGHES (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsGoodwillNarrativeDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsGoodwillNarrativeDetails">
+        <link:definition>2408405 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - GOODWILL (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsOtherIntangibleAssetsNarrativeDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsOtherIntangibleAssetsNarrativeDetails">
+        <link:definition>2408408 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - OTHER INTANGIBLE ASSETS (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfChangesInGoodwillBalancesDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfChangesInGoodwillBalancesDetails">
+        <link:definition>2408404 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - Schedule of Changes in Goodwill Balances (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfIntangibleAssetsSubjectToAmortizationDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfIntangibleAssetsSubjectToAmortizationDetails">
+        <link:definition>2408407 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - Schedule of Intangible Assets Subject to Amortization (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfOtherIntangibleAssetsNetDetails" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsScheduleOfOtherIntangibleAssetsNetDetails">
+        <link:definition>2408406 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS - Schedule of Other Intangible Assets - Net (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionsGoodwillAndOtherIntangibleAssetsTables" roleURI="http://www.ge.com/role/AcquisitionsGoodwillAndOtherIntangibleAssetsTables">
+        <link:definition>2308301 - Disclosure - ACQUISITIONS, GOODWILL AND OTHER INTANGIBLE ASSETS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BasisOfPresentationAndSummaryOfSignificantAccountingPolicies" roleURI="http://www.ge.com/role/BasisOfPresentationAndSummaryOfSignificantAccountingPolicies">
+        <link:definition>2101100 - Disclosure - BASIS OF PRESENTATION AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails" roleURI="http://www.ge.com/role/BasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails">
+        <link:definition>2401402 - Disclosure - BASIS OF PRESENTATION AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BasisOfPresentationAndSummaryOfSignificantAccountingPoliciesPolicies" roleURI="http://www.ge.com/role/BasisOfPresentationAndSummaryOfSignificantAccountingPoliciesPolicies">
+        <link:definition>2201201 - Disclosure - BASIS OF PRESENTATION AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Policies)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="Borrowings" roleURI="http://www.ge.com/role/Borrowings">
+        <link:definition>2112100 - Disclosure - BORROWINGS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BorrowingsNarrativeDetails" roleURI="http://www.ge.com/role/BorrowingsNarrativeDetails">
+        <link:definition>2412404 - Disclosure - BORROWINGS - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BorrowingsScheduleOfShortTermAndLongTermBorrowingsLongTermDetails" roleURI="http://www.ge.com/role/BorrowingsScheduleOfShortTermAndLongTermBorrowingsLongTermDetails">
+        <link:definition>2412403 - Disclosure - BORROWINGS - Schedule of Short-term and Long-term Borrowings, Long-term (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BorrowingsScheduleOfShortTermAndLongTermBorrowingsShortTermDetails" roleURI="http://www.ge.com/role/BorrowingsScheduleOfShortTermAndLongTermBorrowingsShortTermDetails">
+        <link:definition>2412402 - Disclosure - BORROWINGS - Schedule of Short-term and Long-term Borrowings, Short-term (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BorrowingsTables" roleURI="http://www.ge.com/role/BorrowingsTables">
+        <link:definition>2312301 - Disclosure - BORROWINGS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessesHeldForSaleAndDiscontinuedOperations" roleURI="http://www.ge.com/role/BusinessesHeldForSaleAndDiscontinuedOperations">
+        <link:definition>2102100 - Disclosure - BUSINESSES HELD FOR SALE AND DISCONTINUED OPERATIONS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessesHeldForSaleAndDiscontinuedOperationsNarrativeDetails" roleURI="http://www.ge.com/role/BusinessesHeldForSaleAndDiscontinuedOperationsNarrativeDetails">
+        <link:definition>2402402 - Disclosure - BUSINESSES HELD FOR SALE AND DISCONTINUED OPERATIONS - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessesHeldForSaleAndDiscontinuedOperationsScheduleOfFinancialInformationForAssetsAndLiabilitiesOfBusinessesHeldForSaleDetails" roleURI="http://www.ge.com/role/BusinessesHeldForSaleAndDiscontinuedOperationsScheduleOfFinancialInformationForAssetsAndLiabilitiesOfBusinessesHeldForSaleDetails">
+        <link:definition>2402403 - Disclosure - BUSINESSES HELD FOR SALE AND DISCONTINUED OPERATIONS - Schedule of Financial Information for Assets and Liabilities of Businesses Held for Sale (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessesHeldForSaleAndDiscontinuedOperationsScheduleOfFinancialInformationForDiscontinuedOperationsDetails" roleURI="http://www.ge.com/role/BusinessesHeldForSaleAndDiscontinuedOperationsScheduleOfFinancialInformationForDiscontinuedOperationsDetails">
+        <link:definition>2402404 - Disclosure - BUSINESSES HELD FOR SALE AND DISCONTINUED OPERATIONS - Schedule of Financial Information for Discontinued Operations (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessesHeldForSaleAndDiscontinuedOperationsTables" roleURI="http://www.ge.com/role/BusinessesHeldForSaleAndDiscontinuedOperationsTables">
+        <link:definition>2302301 - Disclosure - BUSINESSES HELD FOR SALE AND DISCONTINUED OPERATIONS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingencies" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingencies">
+        <link:definition>2121100 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesCommitmentsNarrativeDetails" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesCommitmentsNarrativeDetails">
+        <link:definition>2421402 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES - COMMITMENTS (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesGuaranteesNarrativeDetails" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesGuaranteesNarrativeDetails">
+        <link:definition>2421403 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES - GUARANTEES (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesOtherLossContingenciesNarrativeDetails" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesOtherLossContingenciesNarrativeDetails">
+        <link:definition>2421405 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES - OTHER LOSS CONTINGENCIES (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesRollforwardOfReserveDetails" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesRollforwardOfReserveDetails">
+        <link:definition>2421406 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES - Rollforward of the Reserve (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesScheduleOfProductWarrantiesDetails" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesScheduleOfProductWarrantiesDetails">
+        <link:definition>2421404 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES - Schedule of Product Warranties (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesTables" roleURI="http://www.ge.com/role/CommitmentsGuaranteesProductWarrantiesAndOtherLossContingenciesTables">
+        <link:definition>2321301 - Disclosure - COMMITMENTS, GUARANTEES, PRODUCT WARRANTIES AND OTHER LOSS CONTINGENCIES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementOfChangesInShareownersEquity" roleURI="http://www.ge.com/role/ConsolidatedStatementOfChangesInShareownersEquity">
+        <link:definition>1003000 - Statement - CONSOLIDATED STATEMENT OF CHANGES IN SHAREOWNERS' EQUITY</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementOfComprehensiveIncomeLoss" roleURI="http://www.ge.com/role/ConsolidatedStatementOfComprehensiveIncomeLoss">
+        <link:definition>1002000 - Statement - CONSOLIDATED STATEMENT OF COMPREHENSIVE INCOME (LOSS)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementOfComprehensiveIncomeLossCalc2" roleURI="http://www.ge.com/role/ConsolidatedStatementOfComprehensiveIncomeLossCalc2">
+        <link:definition>1002000 - Statement - CONSOLIDATED STATEMENT OF COMPREHENSIVE INCOME (LOSS)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContractAssets" roleURI="http://www.ge.com/role/ContractAssets">
+        <link:definition>2111100 - Disclosure - CONTRACT ASSETS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContractAssetsDetails" roleURI="http://www.ge.com/role/ContractAssetsDetails">
+        <link:definition>2411402 - Disclosure - CONTRACT ASSETS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContractAssetsTables" roleURI="http://www.ge.com/role/ContractAssetsTables">
+        <link:definition>2311301 - Disclosure - CONTRACT ASSETS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CurrentReceivables" roleURI="http://www.ge.com/role/CurrentReceivables">
+        <link:definition>2104100 - Disclosure - CURRENT RECEIVABLES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CurrentReceivablesNarrativeDetails" roleURI="http://www.ge.com/role/CurrentReceivablesNarrativeDetails">
+        <link:definition>2404403 - Disclosure - CURRENT RECEIVABLES - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CurrentReceivablesScheduleOfCurrentReceivablesDetails" roleURI="http://www.ge.com/role/CurrentReceivablesScheduleOfCurrentReceivablesDetails">
+        <link:definition>2404402 - Disclosure - CURRENT RECEIVABLES - Schedule of Current Receivables (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CurrentReceivablesTables" roleURI="http://www.ge.com/role/CurrentReceivablesTables">
+        <link:definition>2304301 - Disclosure - CURRENT RECEIVABLES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DocumentAndEntityInformation" roleURI="http://www.ge.com/role/DocumentAndEntityInformation">
+        <link:definition>0001000 - Document - Document and Entity Information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareInformation" roleURI="http://www.ge.com/role/EarningsPerShareInformation">
+        <link:definition>2117100 - Disclosure - EARNINGS PER SHARE INFORMATION</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareInformationDetails" roleURI="http://www.ge.com/role/EarningsPerShareInformationDetails">
+        <link:definition>2417402 - Disclosure - EARNINGS PER SHARE INFORMATION (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareInformationDetailsCalc2" roleURI="http://www.ge.com/role/EarningsPerShareInformationDetailsCalc2">
+        <link:definition>2417402 - Disclosure - EARNINGS PER SHARE INFORMATION (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareInformationTables" roleURI="http://www.ge.com/role/EarningsPerShareInformationTables">
+        <link:definition>2317301 - Disclosure - EARNINGS PER SHARE INFORMATION (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstruments" roleURI="http://www.ge.com/role/FinancialInstruments">
+        <link:definition>2119100 - Disclosure - FINANCIAL INSTRUMENTS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsNarrativeDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsNarrativeDetails">
+        <link:definition>2419404 - Disclosure - FINANCIAL INSTRUMENTS - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfCarryingAmountsRelatedToDerivativesDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfCarryingAmountsRelatedToDerivativesDetails">
+        <link:definition>2419409 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Carrying Amounts Related to Derivatives (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfCarryingAmountsRelatedToDerivativesDetailsCalc2" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfCarryingAmountsRelatedToDerivativesDetailsCalc2">
+        <link:definition>2419409 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Carrying Amounts Related to Derivatives (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfEffectsOfDerivativesOnEarningsDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfEffectsOfDerivativesOnEarningsDetails">
+        <link:definition>2419410 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Effects of Derivatives on Earnings (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfFinancialStatementEffectsCashFlowHedgesDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfFinancialStatementEffectsCashFlowHedgesDetails">
+        <link:definition>2419405 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Financial Statement Effects - Cash Flow Hedges (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfFinancialStatementEffectsEconomicHedgesDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfFinancialStatementEffectsEconomicHedgesDetails">
+        <link:definition>2419408 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Financial Statement Effects - Economic Hedges (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfFinancialStatementEffectsFairValueHedgesDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfFinancialStatementEffectsFairValueHedgesDetails">
+        <link:definition>2419406 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Financial Statement Effects - Fair Value Hedges (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfFinancialStatementEffectsNetInvestmentHedgesDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfFinancialStatementEffectsNetInvestmentHedgesDetails">
+        <link:definition>2419407 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Financial Statement Effects - Net Investment Hedges (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfInformationAboutAssetsAndLiabilitiesNotCarriedAtFairValueDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfInformationAboutAssetsAndLiabilitiesNotCarriedAtFairValueDetails">
+        <link:definition>2419402 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Information About Assets and Liabilities Not Carried at Fair Value (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsScheduleOfNotionalAmountsOfLoanCommitmentsDetails" roleURI="http://www.ge.com/role/FinancialInstrumentsScheduleOfNotionalAmountsOfLoanCommitmentsDetails">
+        <link:definition>2419403 - Disclosure - FINANCIAL INSTRUMENTS - Schedule of Notional Amounts of Loan Commitments (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancialInstrumentsTables" roleURI="http://www.ge.com/role/FinancialInstrumentsTables">
+        <link:definition>2319301 - Disclosure - FINANCIAL INSTRUMENTS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivables" roleURI="http://www.ge.com/role/GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivables">
+        <link:definition>2106100 - Disclosure - GE CAPITAL FINANCING RECEIVABLES AND ALLOWANCE FOR LOSSES ON FINANCING RECEIVABLES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesNarrativeDetails" roleURI="http://www.ge.com/role/GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesNarrativeDetails">
+        <link:definition>2406403 - Disclosure - GE CAPITAL FINANCING RECEIVABLES AND ALLOWANCE FOR LOSSES ON FINANCING RECEIVABLES - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesScheduleOfFinancingReceivablesNetDetails" roleURI="http://www.ge.com/role/GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesScheduleOfFinancingReceivablesNetDetails">
+        <link:definition>2406402 - Disclosure - GE CAPITAL FINANCING RECEIVABLES AND ALLOWANCE FOR LOSSES ON FINANCING RECEIVABLES - Schedule of Financing Receivables, Net (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesTables" roleURI="http://www.ge.com/role/GeCapitalFinancingReceivablesAndAllowanceForLossesOnFinancingReceivablesTables">
+        <link:definition>2306301 - Disclosure - GE CAPITAL FINANCING RECEIVABLES AND ALLOWANCE FOR LOSSES ON FINANCING RECEIVABLES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GuarantorFinancialInformation" roleURI="http://www.ge.com/role/GuarantorFinancialInformation">
+        <link:definition>2123100 - Disclosure - GUARANTOR FINANCIAL INFORMATION</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GuarantorFinancialInformationCondensedConsolidatingStatementOfCashFlowsDetails" roleURI="http://www.ge.com/role/GuarantorFinancialInformationCondensedConsolidatingStatementOfCashFlowsDetails">
+        <link:definition>2423404 - Disclosure - GUARANTOR FINANCIAL INFORMATION - Condensed Consolidating Statement of Cash Flows (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GuarantorFinancialInformationCondensedConsolidatingStatementOfEarningsLossAndComprehensiveIncomeLossDetails" roleURI="http://www.ge.com/role/GuarantorFinancialInformationCondensedConsolidatingStatementOfEarningsLossAndComprehensiveIncomeLossDetails">
+        <link:definition>2423402 - Disclosure - GUARANTOR FINANCIAL INFORMATION - Condensed Consolidating Statement of Earnings (Loss) and Comprehensive Income (Loss) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GuarantorFinancialInformationCondensedConsolidatingStatementOfFinancialPositionDetails" roleURI="http://www.ge.com/role/GuarantorFinancialInformationCondensedConsolidatingStatementOfFinancialPositionDetails">
+        <link:definition>2423403 - Disclosure - GUARANTOR FINANCIAL INFORMATION - Condensed Consolidating Statement of Financial Position (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GuarantorFinancialInformationTables" roleURI="http://www.ge.com/role/GuarantorFinancialInformationTables">
+        <link:definition>2323301 - Disclosure - GUARANTOR FINANCIAL INFORMATION (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxes" roleURI="http://www.ge.com/role/IncomeTaxes">
+        <link:definition>2115100 - Disclosure - INCOME TAXES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetails" roleURI="http://www.ge.com/role/IncomeTaxesDetails">
+        <link:definition>2415402 - Disclosure - INCOME TAXES (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesTables" roleURI="http://www.ge.com/role/IncomeTaxesTables">
+        <link:definition>2315301 - Disclosure - INCOME TAXES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IntercompanyTransactions" roleURI="http://www.ge.com/role/IntercompanyTransactions">
+        <link:definition>2122100 - Disclosure - INTERCOMPANY TRANSACTIONS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IntercompanyTransactionsDetails" roleURI="http://www.ge.com/role/IntercompanyTransactionsDetails">
+        <link:definition>2422402 - Disclosure - INTERCOMPANY TRANSACTIONS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IntercompanyTransactionsTables" roleURI="http://www.ge.com/role/IntercompanyTransactionsTables">
+        <link:definition>2322301 - Disclosure - INTERCOMPANY TRANSACTIONS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="Inventories" roleURI="http://www.ge.com/role/Inventories">
+        <link:definition>2105100 - Disclosure - INVENTORIES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InventoriesDetails" roleURI="http://www.ge.com/role/InventoriesDetails">
+        <link:definition>2405402 - Disclosure - INVENTORIES (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InventoriesDetailsCalc2" roleURI="http://www.ge.com/role/InventoriesDetailsCalc2">
+        <link:definition>2405402 - Disclosure - INVENTORIES (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InventoriesTables" roleURI="http://www.ge.com/role/InventoriesTables">
+        <link:definition>2305301 - Disclosure - INVENTORIES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefits" roleURI="http://www.ge.com/role/InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefits">
+        <link:definition>2113100 - Disclosure - INVESTMENT CONTRACTS, INSURANCE LIABILITIES AND INSURANCE ANNUITY BENEFITS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefitsDetails" roleURI="http://www.ge.com/role/InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefitsDetails">
+        <link:definition>2413402 - Disclosure - INVESTMENT CONTRACTS, INSURANCE LIABILITIES AND INSURANCE ANNUITY BENEFITS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefitsTables" roleURI="http://www.ge.com/role/InvestmentContractsInsuranceLiabilitiesAndInsuranceAnnuityBenefitsTables">
+        <link:definition>2313301 - Disclosure - INVESTMENT CONTRACTS, INSURANCE LIABILITIES AND INSURANCE ANNUITY BENEFITS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecurities" roleURI="http://www.ge.com/role/InvestmentSecurities">
+        <link:definition>2103100 - Disclosure - INVESTMENT SECURITIES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecuritiesNarrativeDetails" roleURI="http://www.ge.com/role/InvestmentSecuritiesNarrativeDetails">
+        <link:definition>2403404 - Disclosure - INVESTMENT SECURITIES - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecuritiesScheduleOfContractualMaturitiesOfInvestmentInAvailableForSaleDebtSecuritiesExcludingMortgageAndAssetBackedSecuritiesDetails" roleURI="http://www.ge.com/role/InvestmentSecuritiesScheduleOfContractualMaturitiesOfInvestmentInAvailableForSaleDebtSecuritiesExcludingMortgageAndAssetBackedSecuritiesDetails">
+        <link:definition>2403405 - Disclosure - INVESTMENT SECURITIES - Schedule of Contractual Maturities of Investment in Available-For-Sale Debt Securities (Excluding Mortgage and Asset-Backed Securities) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecuritiesScheduleOfEstimatedFairValueAndGrossUnrealizedLossesOfAvailableForSaleInvestmentSecuritiesDetails" roleURI="http://www.ge.com/role/InvestmentSecuritiesScheduleOfEstimatedFairValueAndGrossUnrealizedLossesOfAvailableForSaleInvestmentSecuritiesDetails">
+        <link:definition>2403403 - Disclosure - INVESTMENT SECURITIES - Schedule of Estimated Fair Value and Gross Unrealized Losses of Available-For-Sale Investment Securities (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecuritiesScheduleOfInvestmentSecuritiesDetails" roleURI="http://www.ge.com/role/InvestmentSecuritiesScheduleOfInvestmentSecuritiesDetails">
+        <link:definition>2403402 - Disclosure - INVESTMENT SECURITIES - Schedule of Investment Securities (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentSecuritiesTables" roleURI="http://www.ge.com/role/InvestmentSecuritiesTables">
+        <link:definition>2303301 - Disclosure - INVESTMENT SECURITIES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PostretirementBenefitPlans" roleURI="http://www.ge.com/role/PostretirementBenefitPlans">
+        <link:definition>2114100 - Disclosure - POSTRETIREMENT BENEFIT PLANS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PostretirementBenefitPlansDetails" roleURI="http://www.ge.com/role/PostretirementBenefitPlansDetails">
+        <link:definition>2414402 - Disclosure - POSTRETIREMENT BENEFIT PLANS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PostretirementBenefitPlansTables" roleURI="http://www.ge.com/role/PostretirementBenefitPlansTables">
+        <link:definition>2314301 - Disclosure - POSTRETIREMENT BENEFIT PLANS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipment" roleURI="http://www.ge.com/role/PropertyPlantAndEquipment">
+        <link:definition>2107100 - Disclosure - PROPERTY, PLANT AND EQUIPMENT</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipmentDetails" roleURI="http://www.ge.com/role/PropertyPlantAndEquipmentDetails">
+        <link:definition>2407402 - Disclosure - PROPERTY, PLANT AND EQUIPMENT (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipmentTables" roleURI="http://www.ge.com/role/PropertyPlantAndEquipmentTables">
+        <link:definition>2307301 - Disclosure - PROPERTY, PLANT AND EQUIPMENT (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentOperations" roleURI="http://www.ge.com/role/SegmentOperations">
+        <link:definition>2125100 - Disclosure - SEGMENT OPERATIONS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentOperationsDetails" roleURI="http://www.ge.com/role/SegmentOperationsDetails">
+        <link:definition>2425402 - Disclosure - SEGMENT OPERATIONS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentOperationsTables" roleURI="http://www.ge.com/role/SegmentOperationsTables">
+        <link:definition>2325301 - Disclosure - SEGMENT OPERATIONS (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquity" roleURI="http://www.ge.com/role/ShareownersEquity">
+        <link:definition>2116100 - Disclosure - SHAREOWNERS' EQUITY</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityNarrativeDetails" roleURI="http://www.ge.com/role/ShareownersEquityNarrativeDetails">
+        <link:definition>2416405 - Disclosure - SHAREOWNERS' EQUITY - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityScheduleOfAccumulatedOtherComprehensiveIncomeLossDetails" roleURI="http://www.ge.com/role/ShareownersEquityScheduleOfAccumulatedOtherComprehensiveIncomeLossDetails">
+        <link:definition>2416402 - Disclosure - SHAREOWNERS' EQUITY - Schedule of Accumulated Other Comprehensive Income (Loss) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityScheduleOfChangesToNoncontrollingInterestsDetails" roleURI="http://www.ge.com/role/ShareownersEquityScheduleOfChangesToNoncontrollingInterestsDetails">
+        <link:definition>2416404 - Disclosure - SHAREOWNERS' EQUITY - Schedule of Changes to Noncontrolling Interests (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityScheduleOfChangesToRedeemableNoncontrollingInterestsDetails" roleURI="http://www.ge.com/role/ShareownersEquityScheduleOfChangesToRedeemableNoncontrollingInterestsDetails">
+        <link:definition>2416406 - Disclosure - SHAREOWNERS' EQUITY - Schedule of Changes to Redeemable Noncontrolling Interests (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityScheduleOfReclassificationOutOfAociDetails" roleURI="http://www.ge.com/role/ShareownersEquityScheduleOfReclassificationOutOfAociDetails">
+        <link:definition>2416403 - Disclosure - SHAREOWNERS' EQUITY - Schedule of Reclassification Out of AOCI (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareownersEquityTables" roleURI="http://www.ge.com/role/ShareownersEquityTables">
+        <link:definition>2316301 - Disclosure - SHAREOWNERS' EQUITY (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfCashFlows" roleURI="http://www.ge.com/role/StatementOfCashFlows">
+        <link:definition>1005000 - Statement - STATEMENT OF CASH FLOWS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfEarningsLoss" roleURI="http://www.ge.com/role/StatementOfEarningsLoss">
+        <link:definition>1001000 - Statement - STATEMENT OF EARNINGS (LOSS)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfEarningsLossCalc2" roleURI="http://www.ge.com/role/StatementOfEarningsLossCalc2">
+        <link:definition>1001000 - Statement - STATEMENT OF EARNINGS (LOSS)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfFinancialPosition" roleURI="http://www.ge.com/role/StatementOfFinancialPosition">
+        <link:definition>1004000 - Statement - STATEMENT OF FINANCIAL POSITION</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfFinancialPositionCalc2" roleURI="http://www.ge.com/role/StatementOfFinancialPositionCalc2">
+        <link:definition>1004000 - Statement - STATEMENT OF FINANCIAL POSITION</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfFinancialPositionParenthetical" roleURI="http://www.ge.com/role/StatementOfFinancialPositionParenthetical">
+        <link:definition>1004501 - Statement - STATEMENT OF FINANCIAL POSITION (Parenthetical)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformation" roleURI="http://www.ge.com/role/SupplementalInformation">
+        <link:definition>2124100 - Disclosure - SUPPLEMENTAL INFORMATION</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationNarrativeDetails" roleURI="http://www.ge.com/role/SupplementalInformationNarrativeDetails">
+        <link:definition>2424406 - Disclosure - SUPPLEMENTAL INFORMATION - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationScheduleOfCashFlowHedgeActivityDetails" roleURI="http://www.ge.com/role/SupplementalInformationScheduleOfCashFlowHedgeActivityDetails">
+        <link:definition>2424405 - Disclosure - SUPPLEMENTAL INFORMATION - Schedule of Cash Flow Hedge Activity (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationScheduleOfCertainSupplementalInformationRelatedToCashFlowsDetails" roleURI="http://www.ge.com/role/SupplementalInformationScheduleOfCertainSupplementalInformationRelatedToCashFlowsDetails">
+        <link:definition>2424402 - Disclosure - SUPPLEMENTAL INFORMATION - Schedule of Certain Supplemental Information Related to Cash Flows (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationScheduleOfFairValueOfDerivativesAssetsDetails" roleURI="http://www.ge.com/role/SupplementalInformationScheduleOfFairValueOfDerivativesAssetsDetails">
+        <link:definition>2424403 - Disclosure - SUPPLEMENTAL INFORMATION - Schedule of Fair Value of Derivatives, Assets (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationScheduleOfFairValueOfDerivativesLiabilitiesDetails" roleURI="http://www.ge.com/role/SupplementalInformationScheduleOfFairValueOfDerivativesLiabilitiesDetails">
+        <link:definition>2424404 - Disclosure - SUPPLEMENTAL INFORMATION - Schedule of Fair Value of Derivatives, Liabilities (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SupplementalInformationTables" roleURI="http://www.ge.com/role/SupplementalInformationTables">
+        <link:definition>2324301 - Disclosure - SUPPLEMENTAL INFORMATION (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="VariableInterestEntities" roleURI="http://www.ge.com/role/VariableInterestEntities">
+        <link:definition>2120100 - Disclosure - VARIABLE INTEREST ENTITIES</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="VariableInterestEntitiesNarrativeDetails" roleURI="http://www.ge.com/role/VariableInterestEntitiesNarrativeDetails">
+        <link:definition>2420402 - Disclosure - VARIABLE INTEREST ENTITIES - Narrative (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="VariableInterestEntitiesScheduleOfAssetsAndLiabilitiesOfConsolidatedViesDetails" roleURI="http://www.ge.com/role/VariableInterestEntitiesScheduleOfAssetsAndLiabilitiesOfConsolidatedViesDetails">
+        <link:definition>2420403 - Disclosure - VARIABLE INTEREST ENTITIES - Schedule of Assets and Liabilities of Consolidated VIEs (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="VariableInterestEntitiesTables" roleURI="http://www.ge.com/role/VariableInterestEntitiesTables">
+        <link:definition>2320301 - Disclosure - VARIABLE INTEREST ENTITIES (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element abstract="true" id="ge_A0.375NotesDue2022Member" name="A0.375NotesDue2022Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_A0.875NotesDue2025Member" name="A0.875NotesDue2025Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_A1.50NotesDue2029Member" name="A1.50NotesDue2029Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_A2.125NotesDue2037Member" name="A2.125NotesDue2037Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_AccountingStandardsUpdate201609ExcessTaxBenefitComponentMember" name="AccountingStandardsUpdate201609ExcessTaxBenefitComponentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_AccountsReceivableCurrentFromSaleOfGoodsAndServicesToCustomers" name="AccountsReceivableCurrentFromSaleOfGoodsAndServicesToCustomers" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_AccruedProgressCollectionsPriceAdjustments" name="AccruedProgressCollectionsPriceAdjustments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_AccumulatedDefinedBenefitPlansAdjustmentCurtailmentGainLossIncludingPortionAttributableToNoncontrollingInterestMember" name="AccumulatedDefinedBenefitPlansAdjustmentCurtailmentGainLossIncludingPortionAttributableToNoncontrollingInterestMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_AcquisitionAlstomMember" name="AcquisitionAlstomMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_AdjustmentForPendingClaimsForUnmetRepresentationsAndWarranties" name="AdjustmentForPendingClaimsForUnmetRepresentationsAndWarranties" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_AdjustmentsToReflectPresentValueOfFutureProfitsInRunOffInsuranceOperationsToReflectEffectsThatWouldHaveBeenRecognizedHadRelatedUnrealizedInvestmentSecuritiesHoldingGainsLosesActuallyBeenRealized" name="AdjustmentsToReflectPresentValueOfFutureProfitsInRunOffInsuranceOperationsToReflectEffectsThatWouldHaveBeenRecognizedHadRelatedUnrealizedInvestmentSecuritiesHoldingGainsLosesActuallyBeenRealized" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_AircraftMember" name="AircraftMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_AllOtherAssets" name="AllOtherAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_AllOtherLiabilities" name="AllOtherLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_AmountOfNonaccrualLoansCurrentlyPayingInAccordanceWithContractualTerms" name="AmountOfNonaccrualLoansCurrentlyPayingInAccordanceWithContractualTerms" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_AmountsOffsetInStatementOfFinancialPositionMember" name="AmountsOffsetInStatementOfFinancialPositionMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_AssetsHeldForSaleAtCarryingValue1" name="AssetsHeldForSaleAtCarryingValue1" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_AssetsLiabilitiesNotCarriedAtFairValueTable" name="AssetsLiabilitiesNotCarriedAtFairValueTable" nillable="true" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_AssumeddebtofsubsidaryexcludedmemberMember" name="AssumeddebtofsubsidaryexcludedmemberMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_AvailableForSaleSecuritiesGrossRealizedLossesAndOtherThanTemporaryImpairmentLossesPortionRecognizedInEarnings" name="AvailableForSaleSecuritiesGrossRealizedLossesAndOtherThanTemporaryImpairmentLossesPortionRecognizedInEarnings" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_AviationMember" name="AviationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_BakerHughesAGECompanyLLCMember" name="BakerHughesAGECompanyLLCMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_BakerHughesMember" name="BakerHughesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_BusinessAcquisitionPercentageOfVotingInterestsAcquiredPortionContinuingToBeSubjectToLocalRegulatoryRequirements" name="BusinessAcquisitionPercentageOfVotingInterestsAcquiredPortionContinuingToBeSubjectToLocalRegulatoryRequirements" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_CapitalOperatingSegmentMember" name="CapitalOperatingSegmentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_CarryingValueOfCashAndCashEquivalents" name="CarryingValueOfCashAndCashEquivalents" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_CashAndEquivalentsExcludingAssetsHeldForSale" name="CashAndEquivalentsExcludingAssetsHeldForSale" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_ChangeInCarryingAmountofItemBeingHedgedIncreaseDecrease" name="ChangeInCarryingAmountofItemBeingHedgedIncreaseDecrease" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_ChangesToNoncontrollingInterestsTableTextBlock" name="ChangesToNoncontrollingInterestsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_CollectionsInvestedInDeferredPurchasePriceReceivable" name="CollectionsInvestedInDeferredPurchasePriceReceivable" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_CommingledCashAmountsOwedToConsolidatedSecuritizationEntities" name="CommingledCashAmountsOwedToConsolidatedSecuritizationEntities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_CommingledCashReceivableFromConsolidatedSecuritizationEntities" name="CommingledCashReceivableFromConsolidatedSecuritizationEntities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_ConsolidatedEntitiesAxis" name="ConsolidatedEntitiesAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_ConsolidatedEntitiesDomain" name="ConsolidatedEntitiesDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_ConsolidatedSecuritizationEntitiesMember" name="ConsolidatedSecuritizationEntitiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_CorporateAndEliminationsMember" name="CorporateAndEliminationsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_CostsAndExpensesLessInterestAndOtherFinancialCharges" name="CostsAndExpensesLessInterestAndOtherFinancialCharges" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_CumulativeGainLossAdjustmentForNonPerformanceRisk" name="CumulativeGainLossAdjustmentForNonPerformanceRisk" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_CurrentPortionOfLongTermBorrowingsMember" name="CurrentPortionOfLongTermBorrowingsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_CurrentReceivablesMember" name="CurrentReceivablesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_CurrentReceivablesSoldToRelatedPartyMember" name="CurrentReceivablesSoldToRelatedPartyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_CustomerNotesReceivableMember" name="CustomerNotesReceivableMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_DefinedBenefitPlanThresholdForAssetsObligationsToBeIncludedInOtherPensionPlans" name="DefinedBenefitPlanThresholdForAssetsObligationsToBeIncludedInOtherPensionPlans" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeAccruedInterestNet" name="DerivativeAccruedInterestNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeAssetCollateralObligationToReturnCashOffsetAndCreditValuationAdjustment" name="DerivativeAssetCollateralObligationToReturnCashOffsetAndCreditValuationAdjustment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeAssetCollateralObligationtoReturnCashOffsetNetofNotSubjecttoMasterNettingArrangement" name="DerivativeAssetCollateralObligationtoReturnCashOffsetNetofNotSubjecttoMasterNettingArrangement" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeAssetFairValueGrossAssetAccruedInterest" name="DerivativeAssetFairValueGrossAssetAccruedInterest" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeAssetFairValueGrossAssetNetOfAccruedInterest" name="DerivativeAssetFairValueGrossAssetNetOfAccruedInterest" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeLiabilityAfterCollateralAndOutstandingInterestPaymentsExcludingEmbeddedDerivatives" name="DerivativeLiabilityAfterCollateralAndOutstandingInterestPaymentsExcludingEmbeddedDerivatives" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeLiabilityCollateralNotSubjecttoMasterNettingArrangementNetofRighttoReclaimCashOffset" name="DerivativeLiabilityCollateralNotSubjecttoMasterNettingArrangementNetofRighttoReclaimCashOffset" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeLiabilityFairValueGrossLiabilityAccruedInterest" name="DerivativeLiabilityFairValueGrossLiabilityAccruedInterest" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeLiabilityFairValueGrossLiabilityNetOfAccruedInterest" name="DerivativeLiabilityFairValueGrossLiabilityNetOfAccruedInterest" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DerivativeNet" name="DerivativeNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DiscontinuedOperationTaxEffectOfDiscontinuedOperationCurrent" name="DiscontinuedOperationTaxEffectOfDiscontinuedOperationCurrent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_DiscontinuedOperationTaxEffectOfDiscontinuedOperationDeferred" name="DiscontinuedOperationTaxEffectOfDiscontinuedOperationDeferred" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationCompensationAndBenefitsNoncurrent" name="DisposalGroupIncludingDiscontinuedOperationCompensationAndBenefitsNoncurrent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationContractAssets" name="DisposalGroupIncludingDiscontinuedOperationContractAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationInvestmentSecurities" name="DisposalGroupIncludingDiscontinuedOperationInvestmentSecurities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationNetAssets" name="DisposalGroupIncludingDiscontinuedOperationNetAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationProgressCollectionsAndPriceAdjustmentsAccrued" name="DisposalGroupIncludingDiscontinuedOperationProgressCollectionsAndPriceAdjustmentsAccrued" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DisposalGroupIncludingDiscontinuedOperationShortTermBorrowings" name="DisposalGroupIncludingDiscontinuedOperationShortTermBorrowings" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_DividendsAndOtherTransactionsWithShareowners" name="DividendsAndOtherTransactionsWithShareowners" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_DividendsReceivedFromRelatedPartyMember" name="DividendsReceivedFromRelatedPartyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_DocumentAndEntityInformationAbstract" name="DocumentAndEntityInformationAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_DoosanAcquisitionMember" name="DoosanAcquisitionMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_EarningsFromContinuingOperationsAttributableToCommonShareownersForPerShareCalculationBasic" name="EarningsFromContinuingOperationsAttributableToCommonShareownersForPerShareCalculationBasic" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_EarningsFromContinuingOperationsAttributableToCommonShareownersForPerShareCalculationDiluted" name="EarningsFromContinuingOperationsAttributableToCommonShareownersForPerShareCalculationDiluted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_EarningsFromContinuingOperationsForPerShareCalculationDiluted" name="EarningsFromContinuingOperationsForPerShareCalculationDiluted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_EarningsFromContinuingOperationsPerShareAbstract" name="EarningsFromContinuingOperationsPerShareAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_EarningsFromContinuingOperationsRetainedBySubsidiary" name="EarningsFromContinuingOperationsRetainedBySubsidiary" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_Earningsfromcontinuingoperationsforpersharecalculationbasic" name="Earningsfromcontinuingoperationsforpersharecalculationbasic" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_EffectiveIncomeTaxRateReconciliationSharebasedCompensationExcessTaxBenefitAmount" name="EffectiveIncomeTaxRateReconciliationSharebasedCompensationExcessTaxBenefitAmount" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_EliminationsAndReconcilingItemsMember" name="EliminationsAndReconcilingItemsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_EnergyConnectionsAndLightingMember" name="EnergyConnectionsAndLightingMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_EquityImpactOfSalesAndPurchasesOfTreasuryShares" name="EquityImpactOfSalesAndPurchasesOfTreasuryShares" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_Excesscollateralization" name="Excesscollateralization" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_Excesscollateralposted" name="Excesscollateralposted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_Excesssecuritiescollateralheld" name="Excesssecuritiescollateralheld" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_ExcludedInvestmentCommitments" name="ExcludedInvestmentCommitments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_ExposureToCounterpartiesIncludingInterestNetCollateralExcludingDerivatives" name="ExposureToCounterpartiesIncludingInterestNetCollateralExcludingDerivatives" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_FairValueOfBorrowingsIncreaseDecreaseDueToHedgesIncludedInBorrowings" name="FairValueOfBorrowingsIncreaseDecreaseDueToHedgesIncludedInBorrowings" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_FairValueOfDerivativesIncreaseDecreaseNIH" name="FairValueOfDerivativesIncreaseDecreaseNIH" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_FairValueOfNonDerivativesIncreaseDecrease" name="FairValueOfNonDerivativesIncreaseDecrease" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_FinancialInstrumentsLineItems" name="FinancialInstrumentsLineItems" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_FinancingReceivablesNetMember" name="FinancingReceivablesNetMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_GEAssetManagementMember" name="GEAssetManagementMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_GECapitalMember" name="GECapitalMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_GEIndustrialCustomerReceivablesSoldToGECapitalMember" name="GEIndustrialCustomerReceivablesSoldToGECapitalMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_GecasMember" name="GecasMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_GeneralElectricCompanyMember" name="GeneralElectricCompanyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_GoodwillAndIntangibleAssets" name="GoodwillAndIntangibleAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_HealthcareMember" name="HealthcareMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_IncomeLossFromDiscontinuedOperationsNetOfTaxDiluted" name="IncomeLossFromDiscontinuedOperationsNetOfTaxDiluted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_Incomelossfromdiscontinuedoperationsnetoftaxbasic" name="Incomelossfromdiscontinuedoperationsnetoftaxbasic" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_IncreaseDecreaseInCommodityContractAssetsNetOfLiabilities" name="IncreaseDecreaseInCommodityContractAssetsNetOfLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_IncreaseDecreaseProgressCollections" name="IncreaseDecreaseProgressCollections" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_IncreaseToReserveForClaimsForUnmetRepresentationsAndWarrantiesForAdverseEffectInAssumptions" name="IncreaseToReserveForClaimsForUnmetRepresentationsAndWarrantiesForAdverseEffectInAssumptions" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_IntercompanyPayableMember" name="IntercompanyPayableMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_InterestAndOtherFinancialCharges" name="InterestAndOtherFinancialCharges" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_InvestmentContractBenefits" name="InvestmentContractBenefits" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_InvestmentContractsInsuranceLiabilitiesAnnuityBenefits" name="InvestmentContractsInsuranceLiabilitiesAnnuityBenefits" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_InvestmentContractsInsuranceLossesAndInsuranceAnnuityBenefits" name="InvestmentContractsInsuranceLossesAndInsuranceAnnuityBenefits" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_InvestmentInSubsidiary" name="InvestmentInSubsidiary" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_InvestmentSecuritiesMember" name="InvestmentSecuritiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_InvestmentsAndNotesReceivableFairValueDisclosure" name="InvestmentsAndNotesReceivableFairValueDisclosure" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="ge_LawsuitRelatingToRepresentationsAndWarrantiesAmountOfMortgages" name="LawsuitRelatingToRepresentationsAndWarrantiesAmountOfMortgages" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_LiabilitiesOfAssetsHeldForSale1" name="LiabilitiesOfAssetsHeldForSale1" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_LmWindPowerMember" name="LmWindPowerMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_LongTermAndNonRecourseBorrowings" name="LongTermAndNonRecourseBorrowings" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_LongTermIntercompanyPayableToParent" name="LongTermIntercompanyPayableToParent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_LongTermLoansFromRelatedPartyMember" name="LongTermLoansFromRelatedPartyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_MaximumExposureToLoss" name="MaximumExposureToLoss" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_NetEarningsAttributableToGeCommonShareownersForPershareCalculationBasic" name="NetEarningsAttributableToGeCommonShareownersForPershareCalculationBasic" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_NetEarningsPerShareAbstract" name="NetEarningsPerShareAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_NewBakerHughesMember" name="NewBakerHughesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NewlyIssuedDebtMaturitiesLongerThan90Days" name="NewlyIssuedDebtMaturitiesLongerThan90Days" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="ge_NonRecourseBorrowingsOfConsolidatedSecuritizationEntities" name="NonRecourseBorrowingsOfConsolidatedSecuritizationEntities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_NoncontrollingInterestPortionOfAccumulatedOtherComprehensiveIncomeAndOther" name="NoncontrollingInterestPortionOfAccumulatedOtherComprehensiveIncomeAndOther" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_NonrecourseDebtMember" name="NonrecourseDebtMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfFundingVehiclesEstablishedToPurchaseCustomerNotesReceivable" name="NumberOfFundingVehiclesEstablishedToPurchaseCustomerNotesReceivable" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfFundingVehiclesEstablishedToPurchaseCustomerNotesReceivablePartiallyFundedByThirdPartyDebt" name="NumberOfFundingVehiclesEstablishedToPurchaseCustomerNotesReceivablePartiallyFundedByThirdPartyDebt" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfJointVenturesFormed" name="NumberOfJointVenturesFormed" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfLawsuitsInvolvingRepurchaseClaimsOnLoans" name="NumberOfLawsuitsInvolvingRepurchaseClaimsOnLoans" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfLawsuitsThatAreTheSubjectOfSettlementAgreements" name="NumberOfLawsuitsThatAreTheSubjectOfSettlementAgreements" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfSecuritizationsRelatedToLawsuitsInvolvingRepurchaseClaimsOnLoansInWhichAdversePartiesAreSecuritizationTrustees" name="NumberOfSecuritizationsRelatedToLawsuitsInvolvingRepurchaseClaimsOnLoansInWhichAdversePartiesAreSecuritizationTrustees" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_NumberOfSignificantCasesInvolvingAntiCompetitiveActivitiesAndImproperPayments" name="NumberOfSignificantCasesInvolvingAntiCompetitiveActivitiesAndImproperPayments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_OilAndGasMember" name="OilAndGasMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_OrdinaryCourseOfBusinessLendingCommitments" name="OrdinaryCourseOfBusinessLendingCommitments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_Other1Member" name="Other1Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_OtherCurrentLiabilities" name="OtherCurrentLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_OtherLongTermBorrowingsMember" name="OtherLongTermBorrowingsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_OtherProductWarrantyLiabilityChanges" name="OtherProductWarrantyLiabilityChanges" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_OtherShortTermAndLongTermBorrowingsMember" name="OtherShortTermAndLongTermBorrowingsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_OtherShortTermBorrowingsMember" name="OtherShortTermBorrowingsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_PatentsAndTechnologyMember" name="PatentsAndTechnologyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_PendingRepurchaseClaimsBasedUponRepresentationsAndWarranties" name="PendingRepurchaseClaimsBasedUponRepresentationsAndWarranties" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_PercentFinancingReceivableRecordedInvestmentNonaccrualStatus" name="PercentFinancingReceivableRecordedInvestmentNonaccrualStatus" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element id="ge_Percentfinancingreceivablerecordedinvestmentpastdueover30days" name="Percentfinancingreceivablerecordedinvestmentpastdueover30days" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element id="ge_Percentfinancingreceivablerecordedinvestmentpastdueover90days" name="Percentfinancingreceivablerecordedinvestmentpastdueover90days" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_PowerMember" name="PowerMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_PreferredStockDividendsIncomeStatementImpactDiluted" name="PreferredStockDividendsIncomeStatementImpactDiluted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_PresentValueOfFutureProfitsMember" name="PresentValueOfFutureProfitsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_RelatedPartyTransactionGainLossOnTransaction" name="RelatedPartyTransactionGainLossOnTransaction" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_RenewableEnergySegmentMember" name="RenewableEnergySegmentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_RepaymentsAndOtherReductionsMaturitiesLongerThan90Days" name="RepaymentsAndOtherReductionsMaturitiesLongerThan90Days" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_RescapLiquidatingTrustMember" name="RescapLiquidatingTrustMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_RollforwardOfReserveAndPendingClaimsForRepresentationAndWarrantyObligationsTableTextBlock" name="RollforwardOfReserveAndPendingClaimsForRepresentationAndWarrantyObligationsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_RunOffInsuranceMember" name="RunOffInsuranceMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_ScheduleOfDerivativeInstrumentsInStatementOfFinancialPositionCarryingAmountsTableTextBlock" name="ScheduleOfDerivativeInstrumentsInStatementOfFinancialPositionCarryingAmountsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_ScheduleOfEstimatedFairValueOfAssetsAndLiabilitiesTableTextBlock" name="ScheduleOfEstimatedFairValueOfAssetsAndLiabilitiesTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_ServicemaxMember" name="ServicemaxMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_ShortTermIntercompanyPayableToParent" name="ShortTermIntercompanyPayableToParent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="ge_ShortTermLoansFromRelatedPartyMember" name="ShortTermLoansFromRelatedPartyMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_ShorttermDebtExcludingIntercompanyLoans" name="ShorttermDebtExcludingIntercompanyLoans" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_StatuteOfLimitationsForRepurchaseClaims" name="StatuteOfLimitationsForRepurchaseClaims" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_SubsidiariesGeccMember" name="SubsidiariesGeccMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_SubsidiaryEarningsFromContinuingOperations" name="SubsidiaryEarningsFromContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="ge_TotalBorrowings" name="TotalBorrowings" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="ge_TotalPreTaxAmountInAccumulatedOtherComprehensiveIncomeRelatedToCashFlowHedgesOfForecastedTransactions" name="TotalPreTaxAmountInAccumulatedOtherComprehensiveIncomeRelatedToCashFlowHedgesOfForecastedTransactions" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_TransportationMember" name="TransportationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_TrustAssetsUnconditionallyGuaranteedByGEMember" name="TrustAssetsUnconditionallyGuaranteedByGEMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_UsedAircraftMember" name="UsedAircraftMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_VariableInterestEntitiesAbstract" name="VariableInterestEntitiesAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_VarianceInIncomeLossFromContinuingOperationsBeforeIncomeTaxesNoncontrollingInterestFromPriorYear" name="VarianceInIncomeLossFromContinuingOperationsBeforeIncomeTaxesNoncontrollingInterestFromPriorYear" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_VarianceInIncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParentFromPriorYear" name="VarianceInIncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParentFromPriorYear" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_VarianceInIncomeLossFromDiscontinuedOperationsNetOfTaxIncludingPortionAttributableToNoncontrollingInterestFromPriorYear" name="VarianceInIncomeLossFromDiscontinuedOperationsNetOfTaxIncludingPortionAttributableToNoncontrollingInterestFromPriorYear" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_VarianceInNetIncomeLossAvailableToCommonStockholdersBasicFromPriorYear" name="VarianceInNetIncomeLossAvailableToCommonStockholdersBasicFromPriorYear" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_VarianceInRevenuesFromPriorYear" name="VarianceInRevenuesFromPriorYear" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_WeightedAverageNumberOfEmployeeCompensationRelatedBasicSharesIncludingStockOptionsAndWarrants" name="WeightedAverageNumberOfEmployeeCompensationRelatedBasicSharesIncludingStockOptionsAndWarrants" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element id="ge_WeightedAverageNumberOfSharesOutstandingDiluted" name="WeightedAverageNumberOfSharesOutstandingDiluted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="ge_WmcDiscontinuedOperationsMember" name="WmcDiscontinuedOperationsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+</xsd:schema>
