@@ -1,19 +1,5 @@
-from xbrl import XBRLParser, GAAP, GAAPSerializer
-from xbrl_edit import XBRL
 import zipfile as zf
-import bs4, time, re
-
-xbrl_parser = XBRLParser()
-def parse_xbrl(zipfile):
-    print(zipfile)
-    archive = zf.ZipFile(zipfile, 'r')
-    name_list = archive.namelist()
-    # print(name_list)
-    xml = archive.read(name_list[0])
-    x = XBRL(zipfile, xml)
-    return x.fields
-    #xbrl = xbrl_parser.parse(name_list[0])
-    #soup.prettify(xml)
+import sys, bs4, time, re
 
 def zip_contents(zipfile):
     return zf.ZipFile(zipfile, 'r')
@@ -30,12 +16,24 @@ def simple_parse_xbrl(zipfile):
             main_file_name = name
     xml = archive.read(main_file_name)
     soup = bs4.BeautifulSoup(xml, "lxml")
-    gaap = soup.find("xbrli:context")
-    if gaap:
-        print(gaap)
-        for div in gaap:
-            if div.unit_ref:
-                print(div)
+    ixbrl_context = soup.find("xbrli:context")
+    attribute_list = []
+    if ixbrl_context:
+        print(ixbrl_context)
+        for item in ixbrl_context:
+            if item:
+                try:
+                    item.text
+                except:
+                    pass
+                for attribute in dir(item):
+                    if not attribute.startswith("_"):
+                        if not attribute in attribute_list:
+                            attribute_list.append(attribute)
+
+    print(attribute_list)
+
+
 
 files = ["ge10.zip",
          "ge28.zip",
