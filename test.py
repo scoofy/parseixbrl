@@ -1,5 +1,25 @@
 import zipfile as zf
 import sys, bs4, time, re
+from xbrl import XBRLParser, GAAP, GAAPSerializer
+
+def print_attributes(obj):
+    for attribute in dir(obj):
+        if not attribute.startswith("_"):
+            print(attribute)
+            print(type(attribute))
+            print(getattr(obj, attribute))
+            # if type(attribute) is "class":
+            #     print_attributes(attribute)
+
+def parse_it_all(filename):
+    xbrl_parser = XBRLParser()
+    xbrl = xbrl_parser.parse(open(filename))
+    date = filename.split("-")[-1].split(".")[0]
+    print(date)
+    gaap_obj = xbrl_parser.parseGAAP(xbrl, doc_date=date, context="current", ignore_errors=0)
+    print(gaap_obj.data)
+
+# parse_it_all("ge10/ge-20161231.xml")
 
 def zip_contents(zipfile):
     return zf.ZipFile(zipfile, 'r')
@@ -16,24 +36,10 @@ def simple_parse_xbrl(zipfile):
             main_file_name = name
     xml = archive.read(main_file_name)
     soup = bs4.BeautifulSoup(xml, "lxml")
-    ixbrl_context = soup.find("xbrli:context")
-    attribute_list = []
-    if ixbrl_context:
+    for num in range(10):
+        ixbrl_context = soup.find(id="ID_{}".format(num))
         print(ixbrl_context)
-        for item in ixbrl_context:
-            if item:
-                try:
-                    item.text
-                except:
-                    pass
-                for attribute in dir(item):
-                    if not attribute.startswith("_"):
-                        if not attribute in attribute_list:
-                            attribute_list.append(attribute)
-
-    print(attribute_list)
-
-
+        print(ixbrl_context.text)
 
 files = ["ge10.zip",
          "ge28.zip",
