@@ -1,5 +1,6 @@
 import zipfile as zf
 import sys, bs4, time, re
+from pprint import pprint
 from xbrl import XBRLParser, GAAP, GAAPSerializer
 
 def print_attributes(obj):
@@ -36,10 +37,21 @@ def simple_parse_xbrl(zipfile):
             main_file_name = name
     xml = archive.read(main_file_name)
     soup = bs4.BeautifulSoup(xml, "lxml")
-    for num in range(10):
-        ixbrl_context = soup.find(id="ID_{}".format(num))
-        print(ixbrl_context)
-        print(ixbrl_context.text)
+    data_list = []
+    attribute_set = set([])
+    all_the_shit = soup.find_all(id=re.compile("^ID_"))
+    print(len(all_the_shit))
+    for xbrl_context in all_the_shit:
+        name = xbrl_context.name
+        contents = xbrl_context.contents
+        attr_dict = xbrl_context.attrs
+        attr_dict['contents'] = contents
+        my_dict = {"name": attr_dict}
+        data_list.append(my_dict)
+        attribute_set.update(attr_dict.keys())
+
+    pprint(len(data_list))
+    pprint(attribute_set)
 
 files = ["ge10.zip",
          "ge28.zip",
