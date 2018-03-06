@@ -1,12 +1,14 @@
 import zipfile as zf
 import sys, time, re
 import xml.etree.ElementTree as ET
+from tinydb import TinyDB, where
 import pprint as pp
-from bs4 import BeautifulSoup
+
 from xbrl import XBRLParser, GAAP, GAAPSerializer
 import logging
 logging.basicConfig(format='  ---- %(filename)s|%(lineno)d ----\n%(message)s', level=logging.DEBUG)
 
+db = TinyDB('db.json')
 default_period_tag = "{http://www.xbrl.org/2003/instance}period"
 default_explicit_member_tag = "{http://xbrl.org/2006/xbrldi}explicitMember"
 
@@ -98,7 +100,7 @@ def return_verbose_xbrl_dict(xbrl_tree, namespace, ticker):
             tag = context_element.tag
             short = tag.split("}")[-1]
 
-            context_element_dict[short] = context_element.text
+            context_element_dict[short].update({period: context_element.text})
             # context_element_dict["period"] = period
 
             fact_dict[context_id_short + ":" + short] = context_element_dict
@@ -112,9 +114,14 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
     ns = namespace
     reverse_ns = {v: k for k, v in ns.items()}
 
-    for element in tree.findall("xbrli:context", ns):
+    context_element_list = tree.findall("xbrli:context", ns)
+    for element in context_element_list:
+        # pp.pprint(element.get("id"))
+        pass
+
+    all_facts_dict = {}
+    for element in context_element_list:
         period_dict = {}
-        fact_dict = {}
         dimension = None
         dimension_value = None
         previous_entry = None
@@ -132,6 +139,9 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                 period_dict["forever"] = item.text
         if not period_dict:
             logging.error("No period")
+        else:
+            logging.warning(period_dict)
+
         if period_dict.get("startDate"):
             period_serialized = period_dict.get("startDate") + ":" + period_dict.get("endDate")
         elif period_dict.get("instant"):
@@ -143,19 +153,19 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             period_serialized = None
 
 
-
-
-
-
         context_id = element.get("id")
         context_ref_list = [x for x in root if x.get("contextRef") == context_id]
+        pp.pprint(len(context_ref_list))
         if len(context_ref_list) > 2:
             for context_element in context_ref_list:
                 if "TextBlock" in str(context_element.tag):
+                    # logging.warning(context_element)
                     continue
                 elif "&lt;" in str(context_element.text):
+                    # logging.warning(context_element)
                     continue
                 elif "<div " in str(context_element.text) and "</div>" in str(context_element.text):
+                    # logging.warning(context_element)
                     continue
 
                 tag = context_element.tag
@@ -165,11 +175,25 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                 institution = reverse_ns.get(split_tag[0][1:])
                 accounting_item = split_tag[1]
                 value = context_element.text
-                if not fact_dict.get(institution):
-                    fact_dict[institution] = {accounting_item: {period_serialized: value}}
-                elif not fact_dict[institution].get(accounting_item):
-                    fact_dict[institution][accounting_item] = {period_serialized: value}
-
+                unitRef = context_element.get("unitRef")
+                decimals = context_element.get("decimals")
+                if not all_facts_dict.get(institution):
+                    logging.warning(institution)
+                    all_facts_dict[institution] = {accounting_item: {period_serialized: {"value": value}}}
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+                elif all_facts_dict[institution].get(accounting_item) is None:
+                    # logging.warning(accounting_item)
+                    all_facts_dict[institution][accounting_item] = {period_serialized: {"value": value}}
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+                else:
+                    logging.warning("hmm")
+                    all_facts_dict[institution][accounting_item].update({period_serialized: {"value": value}})
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
+                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+        else:
+            logging.warning("hrm")
 
 
 
@@ -177,15 +201,63 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         for item in element.findall(default_explicit_member_tag):
             dimension = item.attrib.get("dimension")
             dimension_value = item.text
-            previous_entry = fact_dict.get(dimension)
+            previous_entry = all_facts_dict.get(dimension)
             if previous_entry != dimension_value:
                 logging.error("differing dimension values")
 
 
 
 
-        ticker_dict = {ticker: fact_dict}
-        return(ticker_dict)
+    ticker_dict = {ticker: all_facts_dict}
+    # pp.pprint(ticker_dict)
+    with open('output{}.txt'.format(ticker), 'wt') as out:
+        pp.pprint(ticker_dict, stream=out)
+    return(ticker_dict)
+
+def save_ticker_dict(ticker_dict, db=db):
+    ticker = ticker_dict.keys()[0]
+    stock = db.get(ticker)
+
+    institution_list = list(ticker_dict.values())
+    for institution in list(ticker_dict.values()):
+        print(institution)
+        stock_institution = stock.get(institution)
+        if not stock_institution:
+            stock[institution] = list(institution.values())[0]
+            continue
+        for accounting_item in list(institution.values()):
+            stock_accounting_item = stock_institution.get(accounting_item)
+            if not stock_accounting_item:
+                stock[institution][accounting_item] = list(accounting_item.values())[0]
+                continue
+            for period in list(accounting_item.values()):
+                stock[institution][accounting_item][period] = list(period.values())[0]
+
+def print_stock_dict(xbrl_dict, level=0):
+    for key, value in xbrl_dict.items():
+        #print("."*level)
+        #pp.pprint(key)
+        if isinstance(value, dict) or isinstance(value, list):
+            if isinstance(value, dict):
+                if len(value.values()) == 1:
+                    #pp.pprint(value)
+                    pass
+                else:
+                    print_stock_dict(value, level = level + 1)
+            elif isinstance(value, list):
+                for subvalue in value:
+                    if isinstance(subvalue, dict):
+                        print_stock_dict(subvalue, level = level + 1)
+                    else:
+                        #pp.pprint(subvalue)
+                        pass
+            else:
+                #pp.pprint(value)
+                pass
+        else:
+            #pp.pprint(value)
+            pass
+
 
 files = ["aro111.zip",
          "ge10.zip",
@@ -204,14 +276,14 @@ number_of_items = 5
 start = time.time()
 logging.info(start)
 
+
+
+
+
 for file in one_file:
     tree, ns, ticker = return_xbrl_tree_and_namespace(file)
     stock_dict = return_simple_xbrl_dict(tree, ns, ticker)
-    #sys.exit()
-    #ticker = list(stock_dict.keys())[0]
-    #data_dict = list(stock_dict.values())[0]
-    #some_items = dict(take(number_of_items, data_dict.items()))
-    #pp.pprint({ticker: some_items})
+    print_stock_dict(stock_dict)
 
 
 stop = time.time()
