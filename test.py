@@ -1,5 +1,5 @@
 import zipfile as zf
-import sys, time, re
+import sys, time, re, datetime
 import xml.etree.ElementTree as ET
 from tinydb import TinyDB, where
 import pprint as pp
@@ -52,7 +52,7 @@ def return_xbrl_tree_and_namespace(zipfile):
     # pp.pprint(ns)
     return [tree, ns, ticker]
 
-def return_verbose_xbrl_dict(xbrl_tree, namespace, ticker):
+def return_verbose_xbrl_dict_broken(xbrl_tree, namespace, ticker):
     tree = xbrl_tree
     root = tree.getroot()
     ns = namespace
@@ -142,12 +142,24 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         else:
             logging.warning(period_dict)
 
+        # datetime YYYY-MM-DD
+        today = datetime.date.today()
         if period_dict.get("startDate"):
-            period_serialized = period_dict.get("startDate") + ":" + period_dict.get("endDate")
+            start_date = period_dict.get("startDate")
+            end_date = period_dict.get("endDate")
+            period_serialized = start_date + ":" + end_date
+            start_datetime = datetime.date(int(start_date.split("-")[0]), int(start_date.split("-")[1]), int(start_date.split("-")[2]))
+            end_datetime = datetime.date(int(end_date.split("-")[0]), int(end_date.split("-")[1]), int(end_date.split("-")[2]))
+            datetime_delta = end_datetime - start_datetime
+            print(str(int(datetime_delta.days)) + " days")
         elif period_dict.get("instant"):
-            period_serialized = period_dict.get("instant")
+            instant = period_dict.get("instant")
+            period_serialized = instant
+            instant_datetime = datetime.date(int(instant.split("-")[0]), int(instant.split("-")[1]), int(instant.split("-")[2]))
         elif period_dict.get("forever"):
-            period_serialized = period_dict.get("forever")
+            forever = period_dict.get("forever")
+            period_serialized = forever
+            forever_datetime = datetime.date(int(forever.split("-")[0]), int(forever.split("-")[1]), int(forever.split("-")[2]))
         else:
             logging.error("no period_serialized")
             period_serialized = None
