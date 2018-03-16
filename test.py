@@ -120,6 +120,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         pass
 
     all_facts_dict = {}
+    today = datetime.date.today()
     for element in context_element_list:
         period_dict = {}
         dimension = None
@@ -143,7 +144,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             logging.warning(period_dict)
 
         # datetime YYYY-MM-DD
-        today = datetime.date.today()
+        datetime_delta = None
         if period_dict.get("startDate"):
             start_date = period_dict.get("startDate")
             end_date = period_dict.get("endDate")
@@ -151,18 +152,21 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             start_datetime = datetime.date(int(start_date.split("-")[0]), int(start_date.split("-")[1]), int(start_date.split("-")[2]))
             end_datetime = datetime.date(int(end_date.split("-")[0]), int(end_date.split("-")[1]), int(end_date.split("-")[2]))
             datetime_delta = end_datetime - start_datetime
-            print(str(int(datetime_delta.days)) + " days")
+            datetime_to_save = end_datetime
         elif period_dict.get("instant"):
             instant = period_dict.get("instant")
             period_serialized = instant
             instant_datetime = datetime.date(int(instant.split("-")[0]), int(instant.split("-")[1]), int(instant.split("-")[2]))
+            datetime_to_save = instant_datetime
         elif period_dict.get("forever"):
             forever = period_dict.get("forever")
             period_serialized = forever
             forever_datetime = datetime.date(int(forever.split("-")[0]), int(forever.split("-")[1]), int(forever.split("-")[2]))
+            datetime_to_save = forever_datetime
         else:
             logging.error("no period_serialized")
             period_serialized = None
+            datetime_to_save = None
 
 
         context_id = element.get("id")
@@ -192,18 +196,78 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                 if not all_facts_dict.get(institution):
                     logging.warning(institution)
                     all_facts_dict[institution] = {accounting_item: {period_serialized: {"value": value}}}
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
+                    period_dict.update({"datetime": datetime_to_save})
+                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"unitRef": unitRef})
+                    period_dict.update({"decimals": decimals})
                 elif all_facts_dict[institution].get(accounting_item) is None:
                     # logging.warning(accounting_item)
                     all_facts_dict[institution][accounting_item] = {period_serialized: {"value": value}}
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
+                    period_dict.update({"datetime": datetime_to_save})
+                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"unitRef": unitRef})
+                    period_dict.update({"decimals": decimals})
                 else:
-                    logging.warning("hmm")
                     all_facts_dict[institution][accounting_item].update({period_serialized: {"value": value}})
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"unitRef": unitRef})
-                    all_facts_dict[institution][accounting_item][period_serialized].update({"decimals": decimals})
+                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
+                    period_dict.update({"datetime": datetime_to_save})
+                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"unitRef": unitRef})
+                    period_dict.update({"decimals": decimals})
+
+                accounting_item_dict = all_facts_dict[institution][accounting_item]
+                most_recent_index = None
+                most_recent_dict = accounting_item_dict.get("most_recent")
+                if most_recent_dict:
+                    most_recent_index = most_recent_dict.get("period")
+                if not most_recent_index:
+                    accounting_item_dict.update({"most_recent": {"period": period_serialized}})
+                    if datetime_delta:
+                        if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
+                            accounting_item_dict["most_recent"].update({"year": period_serialized})
+                        elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
+                            accounting_item_dict["most_recent"].update({"quarter": period_serialized})
+                        elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                            accounting_item_dict["most_recent"].update({"month": period_serialized})
+
+                else: # there is a most recent
+                    if datetime_to_save:
+                        existing_entry = accounting_item_dict[most_recent_index]
+                        existing_datetime = existing_entry.get("datetime")
+                        if existing_datetime:
+                            if datetime_to_save > existing_datetime:
+                                accounting_item_dict.update({"most_recent": {"period": period_serialized}})
+
+                        #existing_timedelta = existing_entry.get("timedelta")
+                        if datetime_delta:
+                            if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
+                                existing_timedelta_index = accounting_item_dict["most_recent"].get("year")
+                                if existing_timedelta_index:
+                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    if datetime_to_save > existing_timedelta_date:
+                                        accounting_item_dict["most_recent"].update({"year": period_serialized})
+                                else:
+                                    accounting_item_dict["most_recent"].update({"year": period_serialized})
+                            elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
+                                existing_timedelta_index = accounting_item_dict["most_recent"].get("quarter")
+                                if existing_timedelta_index:
+                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    if datetime_to_save > existing_timedelta_date:
+                                        accounting_item_dict["most_recent"].update({"quarter": period_serialized})
+                                else:
+                                    accounting_item_dict["most_recent"].update({"quarter": period_serialized})
+                            elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                                existing_timedelta_index = accounting_item_dict["most_recent"].get("month")
+                                if existing_timedelta_index:
+                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    if datetime_to_save > existing_timedelta_date:
+                                        accounting_item_dict["most_recent"].update({"month": period_serialized})
+                                else:
+                                    accounting_item_dict["most_recent"].update({"month": period_serialized})
+
+
         else:
             logging.warning("hrm")
 
