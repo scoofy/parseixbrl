@@ -1,5 +1,5 @@
 import zipfile as zf
-import sys, time, re, datetime
+import sys, time, re, datetime, json
 import xml.etree.ElementTree as ET
 from tinydb import TinyDB, where
 import pprint as pp
@@ -11,6 +11,19 @@ logging.basicConfig(format='  ---- %(filename)s|%(lineno)d ----\n%(message)s', l
 db = TinyDB('db.json')
 default_period_tag = "{http://www.xbrl.org/2003/instance}period"
 default_explicit_member_tag = "{http://xbrl.org/2006/xbrldi}explicitMember"
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        elif isinstance(obj, datetime.date):
+            return obj.isoformat()
+        elif isinstance(obj, datetime.timedelta):
+            return (datetime.datetime.min + obj).time().isoformat()
+
+def iso_date_to_datetime(date_str):
+    date_str = date_str.replace('"', "").replace("'","")
+    return datetime.date(int(date_str.split("-")[0]), int(date_str.split("-")[1]), int(date_str.split("-")[2]))
 
 def print_attributes(obj):
     for attribute in dir(obj):
@@ -24,7 +37,7 @@ def print_attributes(obj):
 
 def element_walk(element, count=0):
     for child in element:
-        print("\t"*count + str(child))
+        # print("\t"*count + str(child))
         if len(child):
             element_walk(child, count = count + 1)
 
@@ -141,37 +154,38 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         if not period_dict:
             logging.error("No period")
         else:
-            logging.warning(period_dict)
+            # logging.warning(period_dict)
+            pass
 
         # datetime YYYY-MM-DD
         datetime_delta = None
+        start_date = None
         if period_dict.get("startDate"):
             start_date = period_dict.get("startDate")
             end_date = period_dict.get("endDate")
             period_serialized = start_date + ":" + end_date
-            start_datetime = datetime.date(int(start_date.split("-")[0]), int(start_date.split("-")[1]), int(start_date.split("-")[2]))
-            end_datetime = datetime.date(int(end_date.split("-")[0]), int(end_date.split("-")[1]), int(end_date.split("-")[2]))
+            start_datetime = iso_date_to_datetime(start_date)
+            end_datetime = iso_date_to_datetime(end_date)
             datetime_delta = end_datetime - start_datetime
             datetime_to_save = end_datetime
         elif period_dict.get("instant"):
             instant = period_dict.get("instant")
             period_serialized = instant
-            instant_datetime = datetime.date(int(instant.split("-")[0]), int(instant.split("-")[1]), int(instant.split("-")[2]))
+            instant_datetime = iso_date_to_datetime(instant)
             datetime_to_save = instant_datetime
         elif period_dict.get("forever"):
             forever = period_dict.get("forever")
             period_serialized = forever
-            forever_datetime = datetime.date(int(forever.split("-")[0]), int(forever.split("-")[1]), int(forever.split("-")[2]))
+            forever_datetime = iso_date_to_datetime(forever)
             datetime_to_save = forever_datetime
         else:
             logging.error("no period_serialized")
             period_serialized = None
             datetime_to_save = None
 
-
         context_id = element.get("id")
         context_ref_list = [x for x in root if x.get("contextRef") == context_id]
-        pp.pprint(len(context_ref_list))
+        # pp.pprint(len(context_ref_list))
         if len(context_ref_list) > 2:
             for context_element in context_ref_list:
                 if "TextBlock" in str(context_element.tag):
@@ -194,26 +208,26 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                 unitRef = context_element.get("unitRef")
                 decimals = context_element.get("decimals")
                 if not all_facts_dict.get(institution):
-                    logging.warning(institution)
+                    # logging.warning(institution)
                     all_facts_dict[institution] = {accounting_item: {period_serialized: {"value": value}}}
                     period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": datetime_to_save})
-                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
                     period_dict.update({"unitRef": unitRef})
                     period_dict.update({"decimals": decimals})
                 elif all_facts_dict[institution].get(accounting_item) is None:
                     # logging.warning(accounting_item)
                     all_facts_dict[institution][accounting_item] = {period_serialized: {"value": value}}
                     period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": datetime_to_save})
-                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
                     period_dict.update({"unitRef": unitRef})
                     period_dict.update({"decimals": decimals})
                 else:
                     all_facts_dict[institution][accounting_item].update({period_serialized: {"value": value}})
                     period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": datetime_to_save})
-                    period_dict.update({"timedelta": datetime_delta})
+                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
                     period_dict.update({"unitRef": unitRef})
                     period_dict.update({"decimals": decimals})
 
@@ -237,15 +251,17 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                         existing_entry = accounting_item_dict[most_recent_index]
                         existing_datetime = existing_entry.get("datetime")
                         if existing_datetime:
+                            existing_datetime = iso_date_to_datetime(existing_datetime)
                             if datetime_to_save > existing_datetime:
                                 accounting_item_dict.update({"most_recent": {"period": period_serialized}})
 
-                        #existing_timedelta = existing_entry.get("timedelta")
+                        #existing_timedelta = existing_entry.get("timedeltastart")
                         if datetime_delta:
                             if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
                                 existing_timedelta_index = accounting_item_dict["most_recent"].get("year")
                                 if existing_timedelta_index:
                                     existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
                                     if datetime_to_save > existing_timedelta_date:
                                         accounting_item_dict["most_recent"].update({"year": period_serialized})
                                 else:
@@ -254,6 +270,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                                 existing_timedelta_index = accounting_item_dict["most_recent"].get("quarter")
                                 if existing_timedelta_index:
                                     existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
                                     if datetime_to_save > existing_timedelta_date:
                                         accounting_item_dict["most_recent"].update({"quarter": period_serialized})
                                 else:
@@ -262,6 +279,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                                 existing_timedelta_index = accounting_item_dict["most_recent"].get("month")
                                 if existing_timedelta_index:
                                     existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
                                     if datetime_to_save > existing_timedelta_date:
                                         accounting_item_dict["most_recent"].update({"month": period_serialized})
                                 else:
@@ -269,7 +287,8 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
 
 
         else:
-            logging.warning("hrm")
+            # logging.warning(context_ref_list)
+            pass
 
 
 
@@ -286,8 +305,8 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
 
     ticker_dict = {ticker: all_facts_dict}
     # pp.pprint(ticker_dict)
-    with open('output{}.txt'.format(ticker), 'wt') as out:
-        pp.pprint(ticker_dict, stream=out)
+    with open('output{}.json'.format(ticker), 'wt') as output_file:
+        json.dump(ticker_dict, output_file, indent=4)
     return(ticker_dict)
 
 def save_ticker_dict(ticker_dict, db=db):
@@ -350,20 +369,17 @@ def take(n, iterable):
     return list(islice(iterable, n))
 number_of_items = 5
 start = time.time()
-logging.info(start)
 
 
-
-
-
-for file in one_file:
+for file in files:
     tree, ns, ticker = return_xbrl_tree_and_namespace(file)
     stock_dict = return_simple_xbrl_dict(tree, ns, ticker)
     print_stock_dict(stock_dict)
 
 
 stop = time.time()
-logging.info(stop)
+total = stop-start
+logging.info(total)
 
 
 
