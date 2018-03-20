@@ -12,6 +12,8 @@ db = TinyDB('db.json')
 default_period_tag = "{http://www.xbrl.org/2003/instance}period"
 default_explicit_member_tag = "{http://xbrl.org/2006/xbrldi}explicitMember"
 
+GLOBAL_STOCK_DICT_LIST = []
+
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
@@ -20,6 +22,12 @@ class DateTimeEncoder(json.JSONEncoder):
             return obj.isoformat()
         elif isinstance(obj, datetime.timedelta):
             return (datetime.datetime.min + obj).time().isoformat()
+
+def return_stock_if_it_exists(ticker):
+    for stock_dict in GLOBAL_STOCK_DICT_LIST:
+        for key in stock_dict.keys():
+            if key == ticker:
+                return stock_dict
 
 def iso_date_to_datetime(date_str):
     date_str = date_str.replace('"', "").replace("'","")
@@ -132,7 +140,10 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         # pp.pprint(element.get("id"))
         pass
 
-    all_facts_dict = {}
+    xbrl_stock_dict = return_stock_if_it_exists(ticker)
+    if not xbrl_stock_dict:
+        xbrl_stock_dict = {ticker: {}}
+        GLOBAL_STOCK_DICT_LIST.append(xbrl_stock_dict)
     today = datetime.date.today()
     for element in context_element_list:
         period_dict = {}
@@ -186,128 +197,118 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         context_id = element.get("id")
         context_ref_list = [x for x in root if x.get("contextRef") == context_id]
         # pp.pprint(len(context_ref_list))
-        if len(context_ref_list) > 2:
-            for context_element in context_ref_list:
-                if "TextBlock" in str(context_element.tag):
-                    # logging.warning(context_element)
-                    continue
-                elif "&lt;" in str(context_element.text):
-                    # logging.warning(context_element)
-                    continue
-                elif "<div " in str(context_element.text) and "</div>" in str(context_element.text):
-                    # logging.warning(context_element)
-                    continue
+        for context_element in context_ref_list:
+            if "TextBlock" in str(context_element.tag):
+                # logging.warning(context_element)
+                continue
+            elif "&lt;" in str(context_element.text):
+                # logging.warning(context_element)
+                continue
+            elif "<div " in str(context_element.text) and "</div>" in str(context_element.text):
+                # logging.warning(context_element)
+                continue
 
-                tag = context_element.tag
-                split_tag = tag.split("}")
-                if len(split_tag) > 2:
-                    logging.error(split_tag)
-                institution = reverse_ns.get(split_tag[0][1:])
-                accounting_item = split_tag[1]
-                value = context_element.text
-                unitRef = context_element.get("unitRef")
-                decimals = context_element.get("decimals")
-                if not all_facts_dict.get(institution):
-                    # logging.warning(institution)
-                    all_facts_dict[institution] = {accounting_item: {period_serialized: {"value": value}}}
-                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
-                    period_dict.update({"unitRef": unitRef})
-                    period_dict.update({"decimals": decimals})
-                elif all_facts_dict[institution].get(accounting_item) is None:
-                    # logging.warning(accounting_item)
-                    all_facts_dict[institution][accounting_item] = {period_serialized: {"value": value}}
-                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
-                    period_dict.update({"unitRef": unitRef})
-                    period_dict.update({"decimals": decimals})
-                else:
-                    all_facts_dict[institution][accounting_item].update({period_serialized: {"value": value}})
-                    period_dict = all_facts_dict[institution][accounting_item][period_serialized]
-                    period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                    period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
-                    period_dict.update({"unitRef": unitRef})
-                    period_dict.update({"decimals": decimals})
+            tag = context_element.tag
+            split_tag = tag.split("}")
+            if len(split_tag) > 2:
+                logging.error(split_tag)
+            institution = reverse_ns.get(split_tag[0][1:])
+            accounting_item = split_tag[1]
+            value = context_element.text
+            unitRef = context_element.get("unitRef")
+            decimals = context_element.get("decimals")
+            if not xbrl_stock_dict[ticker].get(institution):
+                # logging.warning(institution)
+                xbrl_stock_dict[ticker][institution] = {accounting_item: {period_serialized: {"value": value}}}
+                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
+                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
+                period_dict.update({"unitRef": unitRef})
+                period_dict.update({"decimals": decimals})
+            elif xbrl_stock_dict[ticker][institution].get(accounting_item) is None:
+                # logging.warning(accounting_item)
+                xbrl_stock_dict[ticker][institution][accounting_item] = {period_serialized: {"value": value}}
+                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
+                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
+                period_dict.update({"unitRef": unitRef})
+                period_dict.update({"decimals": decimals})
+            else:
+                xbrl_stock_dict[ticker][institution][accounting_item].update({period_serialized: {"value": value}})
+                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
+                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
+                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
+                period_dict.update({"unitRef": unitRef})
+                period_dict.update({"decimals": decimals})
 
-                accounting_item_dict = all_facts_dict[institution][accounting_item]
-                most_recent_index = None
-                most_recent_dict = accounting_item_dict.get("most_recent")
-                if most_recent_dict:
-                    most_recent_index = most_recent_dict.get("period")
-                if not most_recent_index:
-                    accounting_item_dict.update({"most_recent": {"period": period_serialized}})
+            accounting_item_dict = xbrl_stock_dict[ticker][institution][accounting_item]
+            most_recent_index = None
+            most_recent_dict = accounting_item_dict.get("most_recent")
+            if most_recent_dict:
+                most_recent_index = most_recent_dict.get("period")
+            if not most_recent_index:
+                accounting_item_dict.update({"most_recent": {"period": period_serialized}})
+                if datetime_delta:
+                    if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
+                        accounting_item_dict["most_recent"].update({"year": period_serialized})
+                    elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
+                        accounting_item_dict["most_recent"].update({"quarter": period_serialized})
+                    elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                        accounting_item_dict["most_recent"].update({"month": period_serialized})
+
+            else: # there is a most recent
+                if datetime_to_save:
+                    existing_entry = accounting_item_dict[most_recent_index]
+                    existing_datetime = existing_entry.get("datetime")
+                    if existing_datetime:
+                        existing_datetime = iso_date_to_datetime(existing_datetime)
+                        if datetime_to_save > existing_datetime:
+                            accounting_item_dict.update({"most_recent": {"period": period_serialized}})
+
+                    #existing_timedelta = existing_entry.get("timedeltastart")
                     if datetime_delta:
                         if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
-                            accounting_item_dict["most_recent"].update({"year": period_serialized})
-                        elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
-                            accounting_item_dict["most_recent"].update({"quarter": period_serialized})
-                        elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
-                            accounting_item_dict["most_recent"].update({"month": period_serialized})
-
-                else: # there is a most recent
-                    if datetime_to_save:
-                        existing_entry = accounting_item_dict[most_recent_index]
-                        existing_datetime = existing_entry.get("datetime")
-                        if existing_datetime:
-                            existing_datetime = iso_date_to_datetime(existing_datetime)
-                            if datetime_to_save > existing_datetime:
-                                accounting_item_dict.update({"most_recent": {"period": period_serialized}})
-
-                        #existing_timedelta = existing_entry.get("timedeltastart")
-                        if datetime_delta:
-                            if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
-                                existing_timedelta_index = accounting_item_dict["most_recent"].get("year")
-                                if existing_timedelta_index:
-                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
-                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
-                                    if datetime_to_save > existing_timedelta_date:
-                                        accounting_item_dict["most_recent"].update({"year": period_serialized})
-                                else:
+                            existing_timedelta_index = accounting_item_dict["most_recent"].get("year")
+                            if existing_timedelta_index:
+                                existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
+                                if datetime_to_save > existing_timedelta_date:
                                     accounting_item_dict["most_recent"].update({"year": period_serialized})
-                            elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
-                                existing_timedelta_index = accounting_item_dict["most_recent"].get("quarter")
-                                if existing_timedelta_index:
-                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
-                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
-                                    if datetime_to_save > existing_timedelta_date:
-                                        accounting_item_dict["most_recent"].update({"quarter": period_serialized})
-                                else:
+                            else:
+                                accounting_item_dict["most_recent"].update({"year": period_serialized})
+                        elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
+                            existing_timedelta_index = accounting_item_dict["most_recent"].get("quarter")
+                            if existing_timedelta_index:
+                                existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
+                                if datetime_to_save > existing_timedelta_date:
                                     accounting_item_dict["most_recent"].update({"quarter": period_serialized})
-                            elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
-                                existing_timedelta_index = accounting_item_dict["most_recent"].get("month")
-                                if existing_timedelta_index:
-                                    existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
-                                    existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
-                                    if datetime_to_save > existing_timedelta_date:
-                                        accounting_item_dict["most_recent"].update({"month": period_serialized})
-                                else:
+                            else:
+                                accounting_item_dict["most_recent"].update({"quarter": period_serialized})
+                        elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                            existing_timedelta_index = accounting_item_dict["most_recent"].get("month")
+                            if existing_timedelta_index:
+                                existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
+                                existing_timedelta_date = iso_date_to_datetime(existing_timedelta_date)
+                                if datetime_to_save > existing_timedelta_date:
                                     accounting_item_dict["most_recent"].update({"month": period_serialized})
-
-
-        else:
-            # logging.warning(context_ref_list)
-            pass
-
-
-
+                            else:
+                                accounting_item_dict["most_recent"].update({"month": period_serialized})
 
         for item in element.findall(default_explicit_member_tag):
             dimension = item.attrib.get("dimension")
             dimension_value = item.text
-            previous_entry = all_facts_dict.get(dimension)
+            previous_entry = xbrl_stock_dict.get(dimension)
             if previous_entry != dimension_value:
                 logging.error("differing dimension values")
 
 
 
 
-    ticker_dict = {ticker: all_facts_dict}
-    # pp.pprint(ticker_dict)
+    # pp.pprint(xbrl_stock_dict)
     with open('output{}.json'.format(ticker), 'wt') as output_file:
-        json.dump(ticker_dict, output_file, indent=4)
-    return(ticker_dict)
+        json.dump(xbrl_stock_dict, output_file, indent=4)
+    return(xbrl_stock_dict)
 
 def save_ticker_dict(ticker_dict, db=db):
     ticker = ticker_dict.keys()[0]
