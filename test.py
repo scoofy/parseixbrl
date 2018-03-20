@@ -12,42 +12,211 @@ db = TinyDB('db.json')
 default_period_tag = "{http://www.xbrl.org/2003/instance}period"
 default_explicit_member_tag = "{http://xbrl.org/2006/xbrldi}explicitMember"
 
+
+class Stock(persistent.Persistent):
+    def __init__(self, symbol, firm_name = ""):
+        self.held_list = persistent.list.PersistentList()
+        # held list should take certain values into account
+        # account where stock is held
+        # number of shares held in that account
+        # redundant information seems silly,
+        # could keep the shares in the account obj only.
+
+        # Ticker Symbol Key
+        #               Class "X"   Preferred   Warrents (currently ignored)
+        # wxStocks      ".X"        ".PX"       Ignored
+        #
+        # Nasdaq        "/X"        "^X"        "/WS","/WS/"
+        # Morningstar   ".X"        "PRX"       ?
+        # Yahoo         "-X"        "-PX"       "-WT"
+        # AAII          ".X"        " PR"       ?
+        # not yet implimented
+        # Bloomberg     "/X"        "/PX"       ?
+        # Google        ?           "-X"        ?
+
+        symbol = symbol.upper()
+        if symbol.isalpha():
+            self.symbol = symbol
+
+            self.nasdaq_symbol = symbol
+            self.aaii_symbol = symbol
+            self.yahoo_symbol = symbol
+            self.morningstar_symbol = symbol
+
+            self.yql_ticker = symbol
+        elif ("." in symbol) or ("^" in symbol) or ("/" in symbol) or ("-" in symbol) or (" PR" in symbol):
+            if "." in symbol:
+                if ".P" in symbol:
+                    # preferred
+                    self.symbol = symbol
+
+                    self.nasdaq_symbol = symbol.replace(".P", "^")
+                    self.yahoo_symbol = symbol.replace(".P", "-P")
+                    self.morningstar_symbol = symbol.replace(".P", "PR")
+                    self.aaii_symbol = symbol.replace(".P", " PR")
+
+                    self.yql_ticker = symbol.replace(".P", "-P")
+                else:
+                    # CLASS.X shares:
+                    self.symbol = symbol
+                    self.ticker = symbol
+
+                    self.aaii_symbol = symbol
+                    self.morningstar_symbol = symbol
+                    self.nasdaq_symbol = symbol.replace(".", "/")
+                    self.yahoo_symbol = symbol.replace(".", "-")
+
+                    self.yql_ticker = symbol.replace(".", "-")
+            if "^" in symbol:
+                # Nasdaq preferred
+                self.symbol = symbol.replace("^", ".P")
+
+                self.nasdaq_symbol = symbol
+                self.yahoo_symbol = symbol.replace("^", "-P")
+                self.morningstar_symbol = symbol.replace("^", "PR")
+                self.aaii_symbol = symbol.replace("^", " PR")
+
+                self.yql_ticker = symbol.replace("^", "-P")
+            if "/" in symbol:
+                # Warrants currently ignored but this function should be reexamined if warrents to be included in the future
+                # if "/WS" in symbol:
+                #   # Nasdaq Warrent
+                #   if "/WS/" in symbol:
+                #       # more complicated version of the same thing
+                #       self.nasdaq_symbol = symbol
+                #       self.yahoo_symbol = symbol.replace("/WS/","-WT")
+                #       # I don't know how morningstar does warrents
+                #   else:
+                #       self.nasdaq_symbol = symbol
+                #       self.yahoo_symbol = symbol.replace("/WS","-WT")
+                #   self.aaii_symbol = None
+
+                # If bloomberg is integrated, this will need to be changed for preferred stock
+                # if "/P" in symbol:
+                #   pass
+
+                # Nasdaq class share
+                self.symbol = symbol.replace("/", ".")
+
+                self.nasdaq_symbol = symbol
+                self.aaii_symbol = symbol.replace("/", ".")
+                self.morningstar_symbol = symbol.replace("/", ".")
+                self.yahoo_symbol = symbol.replace("/", ".")
+
+                self.yql_ticker = symbol.replace("/", ".")
+            if "-" in symbol:
+                if "-P" in symbol:
+                    # Yahoo preferred
+                    self.symbol = symbol.replace("-P", ".P")
+
+
+                    self.yahoo_symbol = symbol
+                    self.nasdaq_symbol = symbol.replace("-P", "^")
+                    self.aaii_symbol = symbol.replace("-P", " PR")
+                    self.morningstar_symbol = symbol.replace("-P", "PR")
+
+                    self.yql_ticker = symbol
+                else:
+                    # Yahoo Class
+                    self.symbol = symbol.replace("-", ".")
+
+
+                    self.yahoo_symbol = symbol
+                    self.nasdaq_symbol = symbol.replace("-", "/")
+                    self.aaii_symbol = symbol.replace("-", ".")
+                    self.morningstar_symbol = symbol.replace("-", ".")
+
+                    self.yql_ticker = symbol
+            if " PR" in symbol:
+                # AAII preferred
+                self.symbol = symbol.replace(" PR", ".P")
+
+
+                self.aaii_symbol = symbol
+                self.yahoo_symbol = symbol.replace(" PR", "-P")
+                self.nasdaq_symbol = symbol.replace(" PR", "^")
+                self.morningstar_symbol = symbol.replace(" PR", "PR")
+
+                self.yql_ticker = symbol.replace(" PR", "-P")
+
+        # Finally:
+        # if morningstar preferred notation "XXXPRX", i don't know how to fix that since "PRE" is a valid ticker
+
+        elif "_" in symbol:
+            self.symbol = symbol
+
+            self.nasdaq_symbol = None
+            self.aaii_symbol = symbol
+            self.yahoo_symbol = None
+            self.morningstar_symbol = None
+            self.yql_ticker = None
+
+        else: #something is very broken, and must be fixed immediately
+            logging.error("illegal ticker symbol: {}, {}\nThe program will now close without saving, you need to add this to the wxStocks_classes exceptions list immediately.".format(symbol, firm_name))
+            sys.exit()
+
+        self.ticker = self.symbol
+        self.firm_name = firm_name
+
+        self.epoch = float(time.time())
+        self.created_epoch = float(time.time())
+        self.updated = datetime.datetime.now()
+
+        # updates
+
+        self.last_nasdaq_scrape_update = 0.0
+
+        self.last_yql_basic_scrape_update = 0.0
+
+        self.last_balance_sheet_update_yf = 0.0
+        self.last_balance_sheet_update_ms = 0.0
+
+        self.last_cash_flow_update_yf = 0.0
+        self.last_cash_flow_update_ms = 0.0
+
+        self.last_income_statement_update_yf = 0.0
+        self.last_income_statement_update_ms = 0.0
+
+        self.last_key_ratios_update_ms = 0.0
+
+        self.last_aaii_update_aa = 0.0
+
+    def testing_reset_fields(self):
+        self.last_yql_basic_scrape_update = 0.0
+
+        self.last_balance_sheet_update_yf = 0.0
+        self.last_balance_sheet_update_ms = 0.0
+
+        self.last_cash_flow_update_yf = 0.0
+        self.last_cash_flow_update_ms = 0.0
+
+        self.last_income_statement_update_yf = 0.0
+        self.last_income_statement_update_ms = 0.0
+
+        self.last_key_ratios_update_ms = 0.0
+
+
+GLOBAL_STOCK_LIST = []
 GLOBAL_STOCK_DICT_LIST = []
 
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.isoformat()
-        elif isinstance(obj, datetime.date):
-            return obj.isoformat()
-        elif isinstance(obj, datetime.timedelta):
-            return (datetime.datetime.min + obj).time().isoformat()
-
 def return_stock_if_it_exists(ticker):
+    for stock_dict in GLOBAL_STOCK_LIST:
+        if stock.ticker == ticker:
+            return stock
+    # else
+    stock = Stock(ticker)
+    return stock
+
+def return_stock_dict_if_it_exists(ticker):
     for stock_dict in GLOBAL_STOCK_DICT_LIST:
         for key in stock_dict.keys():
             if key == ticker:
                 return stock_dict
 
 def iso_date_to_datetime(date_str):
-    date_str = date_str.replace('"', "").replace("'","")
+    # date_str = date_str.replace('"', "").replace("'","")
     return datetime.date(int(date_str.split("-")[0]), int(date_str.split("-")[1]), int(date_str.split("-")[2]))
 
-def print_attributes(obj):
-    for attribute in dir(obj):
-        if not attribute.startswith("_"):
-            logging.info(attribute)
-            logging.info(type(attribute))
-            logging.info(getattr(obj, attribute))
-            # if type(attribute) is "class":
-            #     print_attributes(attribute)
-
-
-def element_walk(element, count=0):
-    for child in element:
-        # print("\t"*count + str(child))
-        if len(child):
-            element_walk(child, count = count + 1)
 
 def zip_contents(zipfile):
     return zf.ZipFile(zipfile, 'r')
@@ -73,62 +242,6 @@ def return_xbrl_tree_and_namespace(zipfile):
     # pp.pprint(ns)
     return [tree, ns, ticker]
 
-def return_verbose_xbrl_dict_broken(xbrl_tree, namespace, ticker):
-    tree = xbrl_tree
-    root = tree.getroot()
-    ns = namespace
-    for element in tree.findall("xbrli:context", ns):
-        cik = None
-        period = {}
-        fact_dict = {}
-        for item in element.iter():
-            if "identifier" in item.tag:
-                if "scheme" in item.attrib.keys():
-                    scheme = item.attrib.get("scheme")
-                    if scheme == "http://www.sec.gov/CIK":
-                        fact_dict["CIK"] = item.text
-
-            elif "explicitMember" in item.tag:
-                if "dimension" in item.attrib.keys():
-                    segment = fact_dict.get("segment")
-                    if not segment:
-                        segment = {}
-                        fact_dict["segment"] = segment
-                    segment[item.attrib.get("dimension")] = item.text
-            elif "startDate" in item.tag:
-                period["startDate"] = item.text
-            elif "endDate" in item.tag:
-                period["endDate"] = item.text
-            elif "instant" in item.tag:
-                period["instant"] = item.text
-            elif "forever" in item.tag:
-                period["forever"] = item.text
-        fact_dict["period"] = period
-        context_id = return_context_id(element)
-        context_ref_list = [x for x in root if x.get("contextRef") == context_id]
-
-        for context_element in context_ref_list:
-            if "TextBlock" in str(context_element.tag):
-                continue
-            elif "&lt;" in str(context_element.text):
-                continue
-            elif "<div " in str(context_element.text) and "</div>" in str(context_element.text):
-                continue
-            else:
-                pass
-            context_id_short = context_id.split("}")[-1]
-            context_element_dict = context_element.attrib
-            tag = context_element.tag
-            short = tag.split("}")[-1]
-
-            context_element_dict[short].update({period: context_element.text})
-            # context_element_dict["period"] = period
-
-            fact_dict[context_id_short + ":" + short] = context_element_dict
-
-        ticker_dict = {ticker: fact_dict}
-        return(ticker_dict)
-
 def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
     tree = xbrl_tree
     root = tree.getroot()
@@ -140,7 +253,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         # pp.pprint(element.get("id"))
         pass
 
-    xbrl_stock_dict = return_stock_if_it_exists(ticker)
+    xbrl_stock_dict = return_stock_dict_if_it_exists(ticker)
     if not xbrl_stock_dict:
         xbrl_stock_dict = {ticker: {}}
         GLOBAL_STOCK_DICT_LIST.append(xbrl_stock_dict)
@@ -170,7 +283,6 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
 
         # datetime YYYY-MM-DD
         datetime_delta = None
-        start_date = None
         if period_dict.get("startDate"):
             start_date = period_dict.get("startDate")
             end_date = period_dict.get("endDate")
@@ -179,16 +291,20 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             end_datetime = iso_date_to_datetime(end_date)
             datetime_delta = end_datetime - start_datetime
             datetime_to_save = end_datetime
+            iso_date_to_save = end_date
+            iso_start_date = start_date
         elif period_dict.get("instant"):
             instant = period_dict.get("instant")
             period_serialized = instant
             instant_datetime = iso_date_to_datetime(instant)
             datetime_to_save = instant_datetime
+            iso_date_to_save = instant
         elif period_dict.get("forever"):
             forever = period_dict.get("forever")
             period_serialized = forever
             forever_datetime = iso_date_to_datetime(forever)
             datetime_to_save = forever_datetime
+            iso_date_to_save = forever
         else:
             logging.error("no period_serialized")
             period_serialized = None
@@ -220,25 +336,18 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             if not xbrl_stock_dict[ticker].get(institution):
                 # logging.warning(institution)
                 xbrl_stock_dict[ticker][institution] = {accounting_item: {period_serialized: {"value": value}}}
-                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
-                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
-                period_dict.update({"unitRef": unitRef})
-                period_dict.update({"decimals": decimals})
             elif xbrl_stock_dict[ticker][institution].get(accounting_item) is None:
                 # logging.warning(accounting_item)
                 xbrl_stock_dict[ticker][institution][accounting_item] = {period_serialized: {"value": value}}
-                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
-                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
-                period_dict.update({"unitRef": unitRef})
-                period_dict.update({"decimals": decimals})
             else:
                 xbrl_stock_dict[ticker][institution][accounting_item].update({period_serialized: {"value": value}})
-                period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
-                period_dict.update({"datetime": DateTimeEncoder().encode(datetime_to_save)})
-                period_dict.update({"timedeltastart": DateTimeEncoder().encode(start_date)})
+            period_dict = xbrl_stock_dict[ticker][institution][accounting_item][period_serialized]
+            period_dict.update({"datetime": iso_date_to_save})
+            if datetime_delta:
+                period_dict.update({"timedeltastart": iso_start_date})
+            if unitRef:
                 period_dict.update({"unitRef": unitRef})
+            if decimals:
                 period_dict.update({"decimals": decimals})
 
             accounting_item_dict = xbrl_stock_dict[ticker][institution][accounting_item]
@@ -249,11 +358,11 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
             if not most_recent_index:
                 accounting_item_dict.update({"most_recent": {"period": period_serialized}})
                 if datetime_delta:
-                    if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
+                    if datetime_delta >= datetime.timedelta(days=359) and datetime_delta < datetime.timedelta(days=370):
                         accounting_item_dict["most_recent"].update({"year": period_serialized})
                     elif datetime_delta > datetime.timedelta(days=85) and datetime_delta < datetime.timedelta(days=95):
                         accounting_item_dict["most_recent"].update({"quarter": period_serialized})
-                    elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                    elif datetime_delta >= datetime.timedelta(days=27) and datetime_delta <= datetime.timedelta(days=32):
                         accounting_item_dict["most_recent"].update({"month": period_serialized})
 
             else: # there is a most recent
@@ -267,7 +376,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
 
                     #existing_timedelta = existing_entry.get("timedeltastart")
                     if datetime_delta:
-                        if datetime_delta >= datetime.timedelta(days=360) and datetime_delta < datetime.timedelta(days=370):
+                        if datetime_delta >= datetime.timedelta(days=359) and datetime_delta < datetime.timedelta(days=370):
                             existing_timedelta_index = accounting_item_dict["most_recent"].get("year")
                             if existing_timedelta_index:
                                 existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
@@ -285,7 +394,7 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
                                     accounting_item_dict["most_recent"].update({"quarter": period_serialized})
                             else:
                                 accounting_item_dict["most_recent"].update({"quarter": period_serialized})
-                        elif datetime_delta >= datetime.timedelta(days=28) and datetime_delta <= datetime.timedelta(days=31):
+                        elif datetime_delta >= datetime.timedelta(days=27) and datetime_delta <= datetime.timedelta(days=32):
                             existing_timedelta_index = accounting_item_dict["most_recent"].get("month")
                             if existing_timedelta_index:
                                 existing_timedelta_date = accounting_item_dict[existing_timedelta_index].get("datetime")
@@ -310,49 +419,33 @@ def return_simple_xbrl_dict(xbrl_tree, namespace, ticker):
         json.dump(xbrl_stock_dict, output_file, indent=4)
     return(xbrl_stock_dict)
 
-def save_ticker_dict(ticker_dict, db=db):
-    ticker = ticker_dict.keys()[0]
-    stock = db.get(ticker)
+def save_stock_dict(xbrl_stock_dict, level=0):
+    ticker = xbrl_stock_dict.keys()[0]
+    stock = return_stock_if_it_exists(ticker)
+    base_dict = xbrl_stock_dict[ticker]
+    for institution in base_dict.keys():
+        institution_dict = base_dict[institution]
+        for accounting_item in institution_dict.keys():
+            period_dict = institution_dict[accounting_item]
+            period_dict_str = str(accounting_item) + "_" + str(institution) +  "_dict_" + "__us"
+            setattr(stock, period_dict_str, period_dict)
+            most_recent_dict = period_dict["most_recent"]
+            if len(most_recent_dict.keys) > 2:
+                for period in most_recent_dict.keys():
+                    if period == "period":
+                        continue
+                    most_recent_period_ref = most_recent_dict[period]
+                    value = period_dict[most_recent_period_ref]["value"]
+                    period_str = str(accounting_item) + "_" + str(institution) +  "_most_recent_" + period + "__us"
+                    setattr(stock, period_str, value)
+            else: # only one unique period (this is normal)
+                most_recent_period_ref = most_recent_dict["period"]
+                value = period_dict[most_recent_period_ref]["value"]
+                period_str = str(accounting_item) + "_" + str(institution) +  "_most_recent_period__us"
+                setattr(stock, period_str, value)
 
-    institution_list = list(ticker_dict.values())
-    for institution in list(ticker_dict.values()):
-        print(institution)
-        stock_institution = stock.get(institution)
-        if not stock_institution:
-            stock[institution] = list(institution.values())[0]
-            continue
-        for accounting_item in list(institution.values()):
-            stock_accounting_item = stock_institution.get(accounting_item)
-            if not stock_accounting_item:
-                stock[institution][accounting_item] = list(accounting_item.values())[0]
-                continue
-            for period in list(accounting_item.values()):
-                stock[institution][accounting_item][period] = list(period.values())[0]
 
-def print_stock_dict(xbrl_dict, level=0):
-    for key, value in xbrl_dict.items():
-        #print("."*level)
-        #pp.pprint(key)
-        if isinstance(value, dict) or isinstance(value, list):
-            if isinstance(value, dict):
-                if len(value.values()) == 1:
-                    #pp.pprint(value)
-                    pass
-                else:
-                    print_stock_dict(value, level = level + 1)
-            elif isinstance(value, list):
-                for subvalue in value:
-                    if isinstance(subvalue, dict):
-                        print_stock_dict(subvalue, level = level + 1)
-                    else:
-                        #pp.pprint(subvalue)
-                        pass
-            else:
-                #pp.pprint(value)
-                pass
-        else:
-            #pp.pprint(value)
-            pass
+
 
 
 files = ["aro111.zip",
@@ -375,7 +468,6 @@ start = time.time()
 for file in files:
     tree, ns, ticker = return_xbrl_tree_and_namespace(file)
     stock_dict = return_simple_xbrl_dict(tree, ns, ticker)
-    print_stock_dict(stock_dict)
 
 
 stop = time.time()
